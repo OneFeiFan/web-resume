@@ -106,55 +106,71 @@
 .exp-title { font-size:.88rem; font-weight:500; margin-bottom:.2rem; color:var(--t1); }
 .exp-text { font-size:.82rem; color:var(--t2); line-height:1.7; }
 
-/* ── Timeline v4 — grid dual-row ── */
-.tl-grid { margin:2rem 0 1rem; }
-.tl-row { display:flex; justify-content:space-around; }
-.tl-cell { flex:1; display:flex; flex-direction:column; align-items:center; min-width:0; }
-.tl-cell-gap { opacity:.5; }
-
-.tl-card {
-  display:flex; flex-direction:column; align-items:center; text-align:center;
-  padding:.8rem .4rem; max-width:120px;
+/* ── Timeline v5 — single track staggered ── */
+.tl-track-new {
+  display:flex; align-items:center;
+  margin:2rem 0 1rem;
+  padding:6rem 0 6rem;
+  position:relative;
 }
-.tl-card-date {
-  font-family:'JetBrains Mono',monospace; font-size:.7rem;
-  background:var(--c-muted); padding:1px 8px; border-radius:3px;
-  color:var(--t3); white-space:nowrap; margin-bottom:.3rem;
+.tl-track-new::before {
+  content:''; position:absolute;
+  left:3%; right:3%; top:50%;
+  height:2px; background:var(--c-border);
+  transform:translateY(-50%);
 }
-.tl-card-label { font-size:.78rem; color:var(--t2); line-height:1.35; }
 
-.tl-connector {
+.tl-slot {
+  flex:1; min-width:0;
   display:flex; flex-direction:column; align-items:center;
-  height:2.2rem;
+  position:relative; z-index:1;
 }
-.tl-connector-line { width:1px; flex:1; background:var(--c-border); }
-.tl-dot {
+.tl-up { justify-content:flex-end; }
+.tl-down { justify-content:flex-start; }
+.tl-ghost { opacity:.5; }
+
+.tl-card-new {
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  padding:.6rem .3rem; max-width:110px;
+}
+.tl-up .tl-card-new { margin-bottom:.3rem; }
+.tl-down .tl-card-new { margin-top:.3rem; }
+
+.tl-card-date {
+  font-family:'JetBrains Mono',monospace; font-size:.68rem;
+  background:var(--c-muted); padding:1px 7px; border-radius:3px;
+  color:var(--t3); white-space:nowrap; margin-bottom:.25rem;
+}
+.tl-card-label { font-size:.75rem; color:var(--t2); line-height:1.35; }
+
+.tl-stem { width:1px; height:2rem; background:var(--c-border); flex-shrink:0; }
+
+.tl-dot-new {
   width:12px; height:12px; border-radius:50%;
   border:3px solid var(--c-primary); background:var(--c-primary);
-  flex-shrink:0;
+  flex-shrink:0; z-index:2;
 }
-.tl-dot-gap { border-style:dashed; border-color:var(--t4); background:transparent; }
-
-.tl-axis { height:2px; background:var(--c-border); margin:0 5%; }
+.tl-dot-dash { border-style:dashed; border-color:var(--t4); background:var(--c-surface); }
 
 /* Legend */
 .tl-legend { display:flex; gap:1rem; justify-content:center; margin-top:1rem; padding-top:1rem; border-top:1px solid var(--c-border); }
 .tl-legend-item { display:flex; align-items:center; gap:.3rem; font-size:.7rem; }
 
 /* Dark */
-.dark .tl-connector-line { background:#2D3037; }
-.dark .tl-axis { background:#2D3037; }
+.dark .tl-track-new::before { background:#2D3037; }
+.dark .tl-stem { background:#2D3037; }
 .dark .tl-card-date { background:#1E2126; }
+.dark .tl-dot-dash { background:#121418; }
 
-/* Mobile: stack vertically with dot+line on the left */
+/* Mobile — revert to vertical list */
 @media (max-width: 840px) {
-  .tl-grid { padding-left:1.5rem; }
-  .tl-row { flex-direction:column; gap:0; }
-  .tl-cell { flex-direction:row; align-items:flex-start; gap:.8rem; }
-  .tl-connector { flex-direction:column; height:auto; min-height:3rem; width:auto; }
-  .tl-connector-line { width:1px; min-height:1rem; flex:1; }
-  .tl-card { align-items:flex-start; text-align:left; padding:.3rem 0; max-width:none; }
-  .tl-axis { display:none; }
+  .tl-track-new { flex-direction:column; padding:1rem 0 1rem 1.8rem; align-items:flex-start; }
+  .tl-track-new::before { left:0; right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
+  .tl-slot { flex-direction:row; width:100%; align-items:center; gap:.8rem; }
+  .tl-up, .tl-down { justify-content:flex-start; }
+  .tl-stem { display:none; }
+  .tl-card-new { align-items:flex-start; text-align:left; max-width:none; padding:.3rem 0; }
+  .tl-up .tl-card-new, .tl-down .tl-card-new { margin:0; }
 }
 
 /* Legacy compat */
