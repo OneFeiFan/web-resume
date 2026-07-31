@@ -9,11 +9,13 @@ export default function Header() {
       <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem', marginBottom: '1rem' }}>
         <img
           src="/avatar.jpg"
-          alt=""
+          alt="头像"
+          width={80} height={80}
           style={{
             width: 80, height: 80, borderRadius: '50%',
             objectFit: 'cover', flexShrink: 0,
             border: '2px solid var(--c-border)',
+            imageRendering: 'auto',
           }}
         />
         <div>
