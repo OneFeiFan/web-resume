@@ -1,33 +1,49 @@
 import { useResume } from '../hooks/useResume';
 
-const TYPE_STYLE: Record<string, { dot: string; line: string; badge: string }> = {
-  start:     { dot: 'tl-dot-start',    line: 'solid', badge: '开始' },
-  end:       { dot: 'tl-dot-end',      line: 'solid', badge: '结束' },
-  milestone: { dot: 'tl-dot-milestone',line: 'solid', badge: '里程碑' },
-  gap:       { dot: 'tl-dot-gap',      line: 'dashed', badge: '过渡期' },
+const DOT_COLOR: Record<string, string> = {
+  start:     'var(--c-primary)',
+  end:       'var(--c-accent)',
+  milestone: 'var(--c-primary)',
+  gap:       'var(--t4)',
 };
 
 export default function Timeline() {
   const { data } = useResume();
   const { timeline, projects } = data;
   const totalCommits = projects.reduce((s, p) => s + (Number(p.metrics.commits) || 0), 0);
+  const events = [...timeline].reverse();
 
   return (
     <div>
       <h1 style={{color:'var(--c-primary)'}}>时间线</h1>
 
-      {/* Connected timeline */}
+      {/* Horizontal anchored timeline */}
       <div className="sec"><h2>Journey</h2></div>
-      <div className="tl-track">
-        {[...timeline].reverse().map((e, i) => {
-          const style = TYPE_STYLE[e.type] || TYPE_STYLE.milestone;
+      <div className="tl-h">
+        {/* Horizontal axis */}
+        <div className="tl-h-line" />
+
+        {events.map((e, i) => {
+          const isAbove = i % 2 === 0;
+          const isGap = e.type === 'gap';
+          const color = DOT_COLOR[e.type] || DOT_COLOR.milestone;
+
           return (
-            <div className={`tl-node ${style.line === 'dashed' ? 'tl-gap' : ''}`} key={i}>
-              <div className={`tl-dot-v2 ${style.dot}`} />
-              <div className="tl-body">
-                <span className="tl-date-v2">{e.date}</span>
-                <span className="tl-label t2">{e.label}</span>
-                <span className="tl-badge">{style.badge}</span>
+            <div
+              key={i}
+              className={`tl-h-event ${isAbove ? 'tl-above' : 'tl-below'} ${isGap ? 'tl-gap' : ''}`}
+              style={{ '--dot-color': color } as React.CSSProperties}
+            >
+              {/* Anchor dot on the axis */}
+              <div className={`tl-h-dot ${isGap ? 'tl-h-dot-gap' : ''}`} />
+
+              {/* Connector from dot to card */}
+              <div className={`tl-h-conn ${isAbove ? 'tl-conn-up' : 'tl-conn-down'}`} />
+
+              {/* Event card */}
+              <div className="tl-h-card">
+                <span className="tl-h-date">{e.date}</span>
+                <span className="tl-h-label">{e.label}</span>
               </div>
             </div>
           );
@@ -36,15 +52,21 @@ export default function Timeline() {
 
       {/* Legend */}
       <div className="tl-legend">
-        {Object.entries(TYPE_STYLE).map(([key, s]) => (
-          <span key={key} className="tl-legend-item">
-            <span className={`tl-dot-v2 tl-dot-mini ${s.dot}`} />
-            <span className="t4">{s.badge}</span>
-          </span>
-        ))}
+        <span className="tl-legend-item">
+          <span className="tl-h-dot" style={{position:'static',background:'var(--c-primary)',borderColor:'var(--c-primary)'}} />
+          <span className="t4">开始/里程碑</span>
+        </span>
+        <span className="tl-legend-item">
+          <span className="tl-h-dot" style={{position:'static',background:'var(--c-accent)',borderColor:'var(--c-accent)'}} />
+          <span className="t4">结束</span>
+        </span>
+        <span className="tl-legend-item">
+          <span className="tl-h-dot tl-h-dot-gap" style={{position:'static'}} />
+          <span className="t4">过渡期</span>
+        </span>
       </div>
 
-      {/* Stats snapshot */}
+      {/* Stats */}
       <div className="sec"><h2>Stats</h2></div>
       <div className="mets">
         {projects.map((p) => (
