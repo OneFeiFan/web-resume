@@ -2,7 +2,6 @@ import { useResume } from '../hooks/useResume';
 import Header from '../components/Header';
 import SkillChips from '../components/SkillChips';
 import ProjectCard from '../components/ProjectCard';
-import CommitFeed from '../components/CommitFeed';
 
 export default function Home() {
   const { data, filteredProjects } = useResume();
@@ -34,10 +33,6 @@ export default function Home() {
       {filteredProjects.map((p) => (
         <ProjectCard key={p.id} project={p} />
       ))}
-
-      {/* Commit Feed */}
-      <div className="sec"><h2>Commit Log</h2></div>
-      <CommitFeed />
 
       {/* Awards */}
       <div className="sec"><h2>Honors</h2></div>

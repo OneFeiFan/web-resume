@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Navigation from './components/Navigation';
 import FrameworkSwitcher from './components/FrameworkSwitcher';
@@ -18,11 +18,16 @@ const queryClient = new QueryClient({
 
 function Shell() {
   useTheme();
+  const { pathname } = useLocation();
+
+  const mainClass = ['app-main'];
+  if (['/project/', '/tech-stack', '/timeline'].some(p => pathname.startsWith(p))) mainClass.push('wide');
+  if (pathname === '/about') mainClass.push('wide');
 
   return (
     <>
       <Navigation />
-      <main className="app-main">
+      <main className={mainClass.join(' ')}>
         <FrameworkSwitcher />
         <Suspense fallback={<div style={{padding:'4rem 0',textAlign:'center',color:'#aaa'}}>Loading…</div>}>
           <Routes>

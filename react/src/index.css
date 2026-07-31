@@ -46,7 +46,7 @@
 .t3 { color: var(--t3); }
 .t4 { color: var(--t4); }
 
-/* ── Navigation ── */
+/* ── Navigation Desktop ── */
 .nav-rail { position:fixed; left:0; top:0; height:100vh; width:56px; display:flex; flex-direction:column; align-items:center; padding:2rem 0; gap:1.25rem; border-right:1px solid var(--c-border); z-index:40; background:var(--c-surface); }
 .nav-mono { font-family:'JetBrains Mono',monospace; font-size:1.1rem; font-weight:500; color:var(--c-primary); margin-bottom:.5rem; user-select:none; }
 .nav-item { width:36px; height:36px; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:1.05rem; color:var(--t3); cursor:pointer; transition:all .15s; position:relative; user-select:none; }
@@ -58,8 +58,25 @@
 .nav-btn { width:32px; height:32px; border:none; background:none; font-size:1rem; cursor:pointer; border-radius:6px; color:var(--t3); transition:all .15s; }
 .nav-btn:hover { background:var(--c-muted); color:var(--t1); }
 
+/* ── Navigation Mobile (bottom bar) ── */
+@media (max-width: 840px) {
+  .nav-rail { left:0; right:0; top:auto; bottom:0; height:56px; width:100%; flex-direction:row; padding:0 .5rem; gap:0; border-right:none; border-top:1px solid var(--c-border); justify-content:space-around; background:var(--c-card); }
+  .nav-mono { display:none; }
+  .nav-spacer { display:none; }
+  .nav-item { width:48px; height:48px; }
+  .nav-tip { display:none; }
+  .nav-btn { width:48px; height:48px; }
+}
+
 /* ── Layout ── */
-.app-main { margin-left:56px; padding:3rem 2rem; max-width:720px; }
+.app-main { margin:0 auto; padding:3rem 2rem 6rem; max-width:720px; }
+.app-main.wide { max-width:880px; }
+.app-main.full { max-width:960px; }
+
+@media (max-width: 840px) {
+  .app-main { padding:2rem 1.25rem 5rem; margin:0; max-width:100%; }
+  .app-main.wide, .app-main.full { max-width:100%; }
+}
 
 /* ── Switcher ── */
 .switcher { display:flex; align-items:center; justify-content:space-between; padding:.5rem .9rem; background:var(--c-muted); border-radius:6px; margin-bottom:2.5rem; font-size:.78rem; color:var(--t3); }
@@ -174,4 +191,15 @@
 @media print {
   .summary { background:none; border-left:2px solid #333; padding-left:1rem; }
   .card { border:1px solid #ddd; }
+}
+
+/* ── Mobile ── */
+@media (max-width: 840px) {
+  html { font-size: 15px; }
+  h1 { font-size: 2rem; }
+  .mets { grid-template-columns:repeat(2,1fr); }
+  .proj-hdr { flex-direction:column; }
+  .switcher { font-size:.7rem; padding:.4rem .6rem; }
+  .award { flex-wrap:wrap; }
+  .award-year { margin-left:0; }
 }
