@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
 const scrollCache = new Map<string, number>();
@@ -6,9 +6,8 @@ const scrollCache = new Map<string, number>();
 export default function ScrollToTop() {
   const { pathname } = useLocation();
   const navType = useNavigationType();
-  const saved = useRef(scrollCache.get(pathname));
 
-  // Save current scroll BEFORE unmount (useLayoutEffect runs synchronously)
+  // Save scroll position before leaving current page
   useLayoutEffect(() => {
     const prev = pathname;
     return () => {
@@ -16,13 +15,12 @@ export default function ScrollToTop() {
     };
   }, [pathname]);
 
-  // Handle scroll on mount
+  // Restore or scroll-to-top on navigation
   useEffect(() => {
     if (navType === 'POP') return;
 
-    if (saved.current !== undefined) {
-      // Returning to visited page — restore with retry
-      const target = saved.current;
+    const target = scrollCache.get(pathname);
+    if (target !== undefined) {
       let tries = 0;
       const restore = () => {
         window.scrollTo(0, target);
