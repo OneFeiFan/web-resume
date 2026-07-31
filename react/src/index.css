@@ -172,14 +172,13 @@
 
 /* Mobile: stack vertically, dots left, cards right */
 @media (max-width: 840px) {
-  .tl-track-new { flex-direction:column; min-height:auto; padding:1rem 0 1rem 1.8rem; align-items:flex-start; }
+  .tl-track-new { flex-direction:column; min-height:auto; padding:1rem 0 1rem 1.8rem; align-items:stretch; }
   .tl-track-new::before { left:calc(1.8rem + 5px); right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
   .tl-slot { flex-direction:row !important; width:100%; align-items:flex-start; gap:.8rem; }
-  .tl-spacer { display:none; }
-  .tl-stem { display:none; }
+  .tl-spacer, .tl-stem { display:none; }
+  .tl-slot > .tl-dot-new  { order:0 !important; flex-shrink:0; margin-top:.35rem; }
+  .tl-slot > .tl-card-new { order:1 !important; flex:1; }
   .tl-card-new { align-items:flex-start; text-align:left; max-width:none; padding:.3rem 0; }
-  .tl-slot > .tl-card-new { order:0 !important; flex:0 !important; }
-  .tl-slot > .tl-dot-new { order:0 !important; flex-shrink:0; margin-top:.35rem; }
 }
 
 /* Legacy compat */
