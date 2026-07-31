@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Navigation from './components/Navigation';
 import FrameworkSwitcher from './components/FrameworkSwitcher';
 import TechFooter from './components/TechFooter';
+import ScrollToTop from './components/ScrollToTop';
 import { useTheme } from './hooks/useTheme';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -26,6 +27,7 @@ function Shell() {
 
   return (
     <>
+      <ScrollToTop />
       <Navigation />
       <main className={mainClass.join(' ')}>
         <FrameworkSwitcher />
