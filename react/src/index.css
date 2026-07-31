@@ -108,10 +108,11 @@
 
 /* ── Timeline v5 — single track staggered ── */
 .tl-track-new {
-  display:flex; align-items:center;
+  display:flex; align-items:stretch;
   margin:2rem 0 1rem;
-  padding:6rem 0 6rem;
+  padding:0 0;
   position:relative;
+  min-height:320px;
 }
 .tl-track-new::before {
   content:''; position:absolute;
@@ -125,16 +126,21 @@
   display:flex; flex-direction:column; align-items:center;
   position:relative; z-index:1;
 }
-.tl-up { justify-content:flex-end; }
-.tl-down { justify-content:flex-start; }
 .tl-ghost { opacity:.5; }
+
+/* Card pinned to far edge, stem fills gap to center */
+.tl-up .tl-card-new { order:0; flex-shrink:0; }
+.tl-up .tl-stem      { order:1; flex:1; }
+.tl-up .tl-dot-new   { order:2; flex-shrink:0; }
+
+.tl-down .tl-dot-new   { order:0; flex-shrink:0; }
+.tl-down .tl-stem      { order:1; flex:1; }
+.tl-down .tl-card-new { order:2; flex-shrink:0; }
 
 .tl-card-new {
   display:flex; flex-direction:column; align-items:center; text-align:center;
-  padding:.6rem .3rem; max-width:110px;
+  padding:.4rem .3rem; max-width:110px;
 }
-.tl-up .tl-card-new { margin-bottom:.3rem; }
-.tl-down .tl-card-new { margin-top:.3rem; }
 
 .tl-card-date {
   font-family:'JetBrains Mono',monospace; font-size:.68rem;
@@ -143,7 +149,7 @@
 }
 .tl-card-label { font-size:.75rem; color:var(--t2); line-height:1.35; }
 
-.tl-stem { width:1px; height:2rem; background:var(--c-border); flex-shrink:0; }
+.tl-stem { width:1px; background:var(--c-border); min-height:1rem; }
 
 .tl-dot-new {
   width:12px; height:12px; border-radius:50%;
@@ -162,15 +168,15 @@
 .dark .tl-card-date { background:#1E2126; }
 .dark .tl-dot-dash { background:#121418; }
 
-/* Mobile — revert to vertical list */
+/* Mobile — revert to vertical list with dot on left */
 @media (max-width: 840px) {
-  .tl-track-new { flex-direction:column; padding:1rem 0 1rem 1.8rem; align-items:flex-start; }
-  .tl-track-new::before { left:0; right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
-  .tl-slot { flex-direction:row; width:100%; align-items:center; gap:.8rem; }
-  .tl-up, .tl-down { justify-content:flex-start; }
-  .tl-stem { display:none; }
+  .tl-track-new { flex-direction:column; min-height:auto; padding:1rem 0 1rem 1.8rem; align-items:flex-start; }
+  .tl-track-new::before { left:.35rem; right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
+  .tl-slot { flex-direction:row; width:100%; align-items:flex-start; gap:.8rem; }
+  .tl-up .tl-card-new, .tl-down .tl-card-new { order:0; flex:0; }
+  .tl-up .tl-stem, .tl-down .tl-stem { display:none; }
+  .tl-up .tl-dot-new, .tl-down .tl-dot-new { order:0; flex-shrink:0; margin-top:.35rem; position:static; }
   .tl-card-new { align-items:flex-start; text-align:left; max-width:none; padding:.3rem 0; }
-  .tl-up .tl-card-new, .tl-down .tl-card-new { margin:0; }
 }
 
 /* Legacy compat */
