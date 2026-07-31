@@ -19,12 +19,6 @@ const DECISIONS = [
     why: '4 个页面拆分为独立 chunk，首页优先加载，其余按需。Suspense fallback 缓解感知等待。',
     tradeoff: '路由级分割有首次点击延迟，但对 4 页小站点几乎无感知（每页 <5KB chunk）。',
   },
-  {
-    title: '签名元素：Git Commit Feed',
-    tags: ['Git Log', 'VS Code Theme', '真实性'],
-    why: '终端风格展示真实 Git 提交记录。这是任何模板化简历都无法复制的差异化元素——每个 commit hash 都可溯源。',
-    tradeoff: '非传统简历格式，但作为辅助探索层不影响简历核心信息传达。',
-  },
 ];
 
 export default function About() {
