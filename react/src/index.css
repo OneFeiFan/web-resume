@@ -112,7 +112,7 @@
   margin:2rem 0 1rem;
   padding:0 0;
   position:relative;
-  min-height:320px;
+  min-height:200px;
 }
 .tl-track-new::before {
   content:''; position:absolute;
@@ -128,24 +128,19 @@
 }
 .tl-ghost { opacity:.5; }
 
-/* Card pinned to far edge, stem centered at 1/2 length */
+.tl-up { justify-content:flex-end; }
 .tl-up .tl-card-new { order:0; flex-shrink:0; }
-.tl-up .tl-spacer   { order:1; flex:1; }
-.tl-up .tl-stem     { order:2; flex-shrink:0; }
-.tl-up .tl-spacer2  { order:3; flex:1; }
-.tl-up .tl-dot-new  { order:4; flex-shrink:0; }
+.tl-up .tl-stem     { order:1; flex:1; min-height:1rem; }
+.tl-up .tl-dot-new  { order:2; flex-shrink:0; }
 
+.tl-down { justify-content:flex-start; }
 .tl-down .tl-dot-new  { order:0; flex-shrink:0; }
-.tl-down .tl-spacer   { order:1; flex:1; }
-.tl-down .tl-stem     { order:2; flex-shrink:0; }
-.tl-down .tl-spacer2  { order:3; flex:1; }
-.tl-down .tl-card-new { order:4; flex-shrink:0; }
-
-.tl-spacer, .tl-spacer2 { width:1px; opacity:0; pointer-events:none; }
+.tl-down .tl-stem     { order:1; flex:1; min-height:1rem; }
+.tl-down .tl-card-new { order:2; flex-shrink:0; }
 
 .tl-card-new {
   display:flex; flex-direction:column; align-items:center; text-align:center;
-  padding:.4rem .3rem; max-width:110px;
+  padding:.3rem .3rem; max-width:110px;
 }
 
 .tl-card-date {
@@ -155,7 +150,7 @@
 }
 .tl-card-label { font-size:.75rem; color:var(--t2); line-height:1.35; }
 
-.tl-stem { width:1px; background:var(--c-border); min-height:1rem; }
+.tl-stem { width:1px; background:var(--c-border); }
 
 .tl-dot-new {
   width:12px; height:12px; border-radius:50%;

@@ -32,9 +32,7 @@ export default function Timeline() {
                     <span className="tl-card-date">{e.date}</span>
                     <span className="tl-card-label">{e.label}</span>
                   </div>
-                  <div className="tl-spacer" />
                   <div className="tl-stem" />
-                  <div className="tl-spacer2" />
                   <div
                     className={`tl-dot-new ${isGap ? 'tl-dot-dash' : ''}`}
                     style={{ borderColor: color, background: isGap ? 'var(--c-surface)' : color }}
@@ -46,9 +44,7 @@ export default function Timeline() {
                     className={`tl-dot-new ${isGap ? 'tl-dot-dash' : ''}`}
                     style={{ borderColor: color, background: isGap ? 'var(--c-surface)' : color }}
                   />
-                  <div className="tl-spacer" />
                   <div className="tl-stem" />
-                  <div className="tl-spacer2" />
                   <div className="tl-card-new">
                     <span className="tl-card-date">{e.date}</span>
                     <span className="tl-card-label">{e.label}</span>
