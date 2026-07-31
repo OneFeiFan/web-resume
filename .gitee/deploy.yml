@@ -1,0 +1,34 @@
+# Gitee Go 自动部署 — Monorepo 双版本
+# 构建 React + Vue 两个版本，合并为单个 Pages 站点
+
+name: Build & Deploy (React + Vue)
+
+on:
+  push:
+    branches: [master]
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with: { node-version: 20 }
+
+      - name: Build React
+        run: cd react && npm ci && npm run build && mv dist ../dist-tmp && mkdir -p ../dist/react && mv ../dist-tmp/* ../dist/react/ && cd ..
+
+      - name: Build Vue
+        run: cd vue && npm ci && npm run build && mv dist ../dist/vue && cd ..
+
+      - name: Copy landing
+        run: cp index.html dist/ && cp dist/index.html dist/404.html
+
+      - name: Deploy to Gitee Pages
+        uses: gitee-pages-action@v1
+        with:
+          branch: pages
+          folder: dist
+          token: ${{ secrets.GITEE_TOKEN }}

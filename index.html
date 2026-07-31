@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>陆威帆 · Portfolio</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Noto Sans SC', 'Roboto Flex', system-ui, sans-serif;
+      background: #FAFBFD; color: #1A2B3C;
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    }
+    .container { text-align: center; padding: 2rem; }
+    h1 { font-size: 3rem; font-weight: 300; letter-spacing: -0.5px; color: #003554; margin-bottom: 0.5rem; }
+    p { color: #5C6F81; margin-bottom: 2.5rem; font-size: 1.1rem; }
+    .cards { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; }
+    .card {
+      background: #fff; border: 1px solid #C3C7CE; border-radius: 1rem;
+      padding: 2rem 2.5rem; text-decoration: none; color: inherit;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06); transition: box-shadow 0.3s, transform 0.2s;
+      min-width: 200px;
+    }
+    .card:hover { box-shadow: 0 6px 12px rgba(0,0,0,0.10); transform: translateY(-2px); }
+    .card .icon { font-size: 2.5rem; margin-bottom: 0.75rem; }
+    .card h2 { font-size: 1.25rem; font-weight: 500; margin-bottom: 0.25rem; }
+    .card span { font-size: 0.85rem; color: #73777F; }
+    .auto-redirect { margin-top: 2rem; font-size: 0.8rem; color: #8FA2B3; }
+    .auto-redirect a { color: #007FB8; }
+  </style>
+  <script>
+    // Auto-redirect to React version after 3 seconds
+    setTimeout(() => { window.location.href = '/react/'; }, 3000);
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1>陆威帆</h1>
+    <p>前端开发工程师 · Portfolio</p>
+    <div class="cards">
+      <a href="/react/" class="card">
+        <div class="icon">⚛</div>
+        <h2>React 版</h2>
+        <span>React 19 + Zustand + Query</span>
+      </a>
+      <a href="/vue/" class="card">
+        <div class="icon">💚</div>
+        <h2>Vue 3 版</h2>
+        <span>Vue 3 + Pinia + Query</span>
+      </a>
+    </div>
+    <p class="auto-redirect">3 秒后自动跳转到 <a href="/react/">React 版</a></p>
+  </div>
+</body>
+</html>

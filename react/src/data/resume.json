@@ -1,0 +1,177 @@
+{
+  "personal": {
+    "name": "陆威帆",
+    "title": "前端开发工程师",
+    "email": "3022504358@qq.com",
+    "phone": "195-5200-6623",
+    "location": "江苏",
+    "education": "南京工程学院 · 数字媒体技术（本科）· 2022-09 ~ 2026-06",
+    "summary": "具备 B 端后台、C 端小程序、H5 及 UniApp 混合应用的多技术栈并行开发经验。曾在 3 个月内同时维护 3 个项目（React 后台 + Vue H5 + WePY 小程序），累计交付 207 条提交。具备从零建立团队 Git 协作工作流、主导前端→后端架构迁移的实操经历。"
+  },
+  "skills": [
+    { "category": "语言", "items": ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"] },
+    { "category": "框架", "items": ["React 17", "Vue 2/3", "UniApp", "WePY", "Ant Design Pro", "Element"] },
+    { "category": "移动端", "items": ["微信小程序", "蓝牙 BLE", "WiFi 配网", "Canvas 海报", "H5 适配"] },
+    { "category": "工程化", "items": ["Git", "Jenkins", "蓝湖", "TAPD", "语雀", "TailwindCSS", "Vite"] }
+  ],
+  "experience": {
+    "company": "江苏亲近母语文化教育有限公司",
+    "role": "前端开发实习生",
+    "period": "2026.03 - 2026.06",
+    "bullets": [
+      {
+        "title": "三项目并行交付",
+        "content": "在 3 个月内同时维护 3 个前端项目（React 后台管理 / Vue H5 排行榜 / WePY 小程序），12 周中 5 周双项目并行、3 周三项目并行，累计交付 207 条提交、+41,498 行代码，覆盖「运营配置→H5 展示→小程序互动」的全链路业务闭环。"
+      },
+      {
+        "title": "B端复杂业务系统 (React 17 + TypeScript)",
+        "content": "独立搭建财务对账系统（7 大子模块，单次 3,837 行/43 文件）；从零搭建激励体系（成就+勋章+奖状+作品墙，16 条提交/3,500+ 行）；为 4 大模块建立按钮级 RBAC 权限控制；主动将 466 行 TaskItem 拆分为 3 个独立组件（-87%）。"
+      },
+      {
+        "title": "C端小程序与 H5 (WePY + Vue 2)",
+        "content": "从零搭建圈子社区（7 组件，5,041 行/18 文件）；6 月高强度同步「亲近母语」品牌（4 页面）和暑期活动（3 步流程），两次大提交合计 +10,700 行；独立开发微信 H5 排行榜双端页面，解决 iOS/Android 字体缩放兼容问题。"
+      },
+      {
+        "title": "工程化与设计协作",
+        "content": "通过 Jenkins 了解前端构建部署流水线；使用蓝湖与设计师协作完成 UI 标注提取与视觉还原；融入敏捷研发流程（TAPD + 语雀）。"
+      }
+    ]
+  },
+  "projects": [
+    {
+      "id": "mouse",
+      "name": "业务管理平台 (mouse)",
+      "period": "2026.04 - 2026.06",
+      "role": "前端开发工程师（独立负责 3 条产品线）",
+      "summary": "基于 React 17 + TypeScript 4 + Ant Design Pro v4 的后台管理系统，管理小步读书、师资认证、阅读营等产品线。",
+      "techStack": ["React 17", "TypeScript 4", "Ant Design Pro", "UmiJS 3", "ProTable", "dva"],
+      "metrics": {
+        "commits": 109,
+        "insertions": 21495,
+        "deletions": 7967,
+        "files": 436,
+        "domains": 6
+      },
+      "cases": [
+        {
+          "title": "财务对账系统从零搭建：7 大子模块的全栈前端架构",
+          "background": "公司业务扩张后，财务团队缺乏独立的后台对账系统。需要在 2 周内搭建覆盖 7 个子模块的完整对账系统。",
+          "decision": "采用 config→service→index 三层标准化架构，确保 11 个页面风格一致。资金流水拆分表攻克分→元双向单位换算，通过 ModalForm 的 onFinish 和 initialValues 做双向转换。权限按店铺维度隔离数据。",
+          "impact": "单次提交 3,837 行/43 文件，一次性创建 11 页面 + 8 个 service。5 月集中交付 28 条财务相关提交。覆盖 7 个子模块。",
+          "commits": ["33b44369 (+3837/-5, 43 files)", "5a180132 (+1450, 7 files)"]
+        },
+        {
+          "title": "活动管理全流程：高变更频率模块的架构演进",
+          "background": "活动管理是变更最频繁的模块（43 条提交，235 次文件变更），初期快速堆砌导致 ActivityForm 和 TaskItem 膨胀严重。",
+          "decision": "TaskItem 从 466 行拆分为 WallModal(92行) + WorkModal(166行) + WorksDrawer(146行)。BookPlanConfig 使用 index 管理分组排序、lodash debounce 搜索。",
+          "impact": "TaskItem 代码量减少 87%，3 个新组件各自职责单一。暑期高峰前完成全部功能交付。",
+          "commits": ["19a6bb7d (+2304/-564, 16 files)", "f834dccb (index管理分组)"]
+        }
+      ]
+    },
+    {
+      "id": "h5-app",
+      "name": "诵读活动排行榜 H5 (h5_app)",
+      "period": "2026.04 - 2026.05",
+      "role": "前端开发工程师（独立全流程交付）",
+      "summary": "基于 Vue 2 的移动端 H5 应用，提供 C 端用户排行和 B 端学校/班级排行双端排行榜。",
+      "techStack": ["Vue 2", "Vue Router", "微信 JSSDK", "CSS3 sticky", "无限滚动"],
+      "metrics": {
+        "commits": 28,
+        "insertions": 3937,
+        "deletions": 514,
+        "files": 70
+      },
+      "cases": [
+        {
+          "title": "双端排行榜架构：C 端与 B 端的代码复用与差异化",
+          "background": "需要同时面向学生/家长（C 端）和学校管理员（B 端）展示排行榜，两端 UI 差异大但数据源相同。",
+          "decision": "共享 API 层 + 独立页面组件。C 端 1,083 行、B 端 919 行各自独立。B 端通过 currentTab 状态驱动班级/学生双维度切换。",
+          "impact": "单次交付 2,044 行/4 文件，吸顶表头方案（CSS sticky）零布局抖动。",
+          "commits": ["c46174a (+2044, 4 files)", "81333d1 (分享功能)"]
+        },
+        {
+          "title": "微信 H5 兼容性系统性治理",
+          "background": "排行榜 H5 在微信内置浏览器中遇到字体缩放、分享参数丢失、无限滚动死循环等兼容性问题。",
+          "decision": "全局 CSS -webkit-text-size-adjust: 100% !important 禁用字体缩放。分享 URL 参数改用 encodeURIComponent。无限滚动增加 loading 锁。",
+          "impact": "修复 7 个兼容性 Bug，5 条性能优化提交，占总量 39%。",
+          "commits": ["fe8b2d6 (微信字体fix)", "f71a804 (无限加载死循环fix)"]
+        }
+      ]
+    },
+    {
+      "id": "xb-wx",
+      "name": "小步阅读小程序 (xb_wx)",
+      "period": "2026.04 - 2026.06",
+      "role": "前端开发工程师（独立负责多个核心模块）",
+      "summary": "基于 WePY 框架的微信小程序，涵盖圈子社区、活动详情、成就系统、选书/换书、证书等功能。",
+      "techStack": ["WePY", "微信小程序", "Canvas 2D", "分包策略", "WebSocket"],
+      "metrics": {
+        "commits": 70,
+        "insertions": 16066,
+        "deletions": 3782,
+        "files": 189
+      },
+      "cases": [
+        {
+          "title": "圈子社区从零搭建：WePY 框架下的复杂交互组件",
+          "background": "诵读活动需要社区功能增强用户粘性，微信小程序此前无任何社区功能，且受限于 2MB 主包限制。",
+          "decision": "1 主页面 + 5 功能组件的模块化架构。评论模态框(853行)支持递归嵌套渲染。Canvas 海报采用离屏绑制方案。",
+          "impact": "单次交付 5,041 行/18 文件。海报组件后续通用化覆盖 3 个业务场景。",
+          "commits": ["226bfeef (+5041/-47, 18 files)", "c805ed74 (海报通用化重构)"]
+        },
+        {
+          "title": "6 月高强度双模块同步",
+          "background": "6 月需同步「亲近母语」品牌（4 页面）和暑期活动（3 步流程），时间窗口仅 18 天。",
+          "decision": "亲近母语采用页面直出+组件复用策略（addressPicker 三级联动、certModal 弹窗）。暑期活动采用流程化页面编排（选书→换书→还书）。分包策略控制主包体积。",
+          "impact": "6 月 43 条提交（占总量 59%），两次大提交合计 +10,700 行/36 文件。",
+          "commits": ["e8f87b92 (+5375/-269, 18 files)", "3f723559 (+3120, 9 files)"]
+        }
+      ]
+    },
+    {
+      "id": "intelligent-lab",
+      "name": "智能实验室管理 App",
+      "period": "2024.01 - 2025.02",
+      "role": "学生团队前端组长（带领 3-4 人）",
+      "summary": "基于 UniApp 的 IoT 跨平台应用，管理工业实验设备。替代传统纸质记录，支持远程操控危险设备并自动记录实验数据。",
+      "techStack": ["UniApp", "Vue 2", "蓝牙 BLE", "WiFi 配网", "ECharts", "WebSocket"],
+      "metrics": {
+        "commits": 142,
+        "total_repo_commits": 236,
+        "contribution": "69%",
+        "team_size": "3-4 人"
+      },
+      "cases": [
+        {
+          "title": "前端→后端架构迁移：控制逻辑全量后移",
+          "background": "早期控制逻辑全在前端，导致三个问题：代码难以维护、权限可被绕过、移动设备必须保持前台活跃（不能息屏/切App）否则实验中断。",
+          "decision": "主导「胖客户端→瘦客户端」架构转型：将控制逻辑、状态机与计时模块全量后移至服务端。确立以服务端时间戳为唯一基准的时间同步。WebSocket 实时推送 + Deep Link 通知唤醒。",
+          "impact": "实验不再因前端息屏而中断，权限从可绕过变为服务端强制，前端代码量减少约 30%。",
+          "commits": ["908cf1e (WebSocket断连优化)", "79b0964 (+320/-537, 权限重构)"]
+        },
+        {
+          "title": "团队管理与工程化从零落地",
+          "background": "接手时项目仅有基础可跑通的原型，团队采用文件互传方式协作。需要建立正规的协作流程。",
+          "decision": "寒假独自在 Gitee 建立仓库测试 Git 工作流，返校后手把手教团队。兼任产品经理——分析需求、排列任务、「一人一文件」策略最小化冲突。",
+          "impact": "个人贡献 162/236 提交（69%），系统已在导师课题组投入使用。7 次大规模重构（主页 1,254→399 行 -68%）。",
+          "commits": ["9cebca9 (+399/-855, 主页重写 -68%)", "b3d5443 (+11/-137, Excel导出 -92%)"]
+        }
+      ]
+    }
+  ],
+  "awards": [
+    { "title": "特等奖", "event": "第十三届全国大学生电子商务「创新、创意及创业」挑战赛全国总决赛", "year": 2023 },
+    { "title": "一等奖", "event": "全国高校商业精英挑战赛创新创业竞赛", "year": 2023 },
+    { "title": "三等奖", "event": "中国大学生计算机设计大赛", "year": 2024 }
+  ],
+  "timeline": [
+    { "date": "2024-01", "label": "智能实验室项目启动", "type": "project" },
+    { "date": "2024-08", "label": "智能实验室大规模重构", "type": "milestone" },
+    { "date": "2025-02", "label": "智能实验室卸任", "type": "project" },
+    { "date": "2026-03", "label": "入职亲近母语实习", "type": "career" },
+    { "date": "2026-04", "label": "三项目并行启动", "type": "milestone" },
+    { "date": "2026-05", "label": "财务系统集中交付（28条提交）", "type": "milestone" },
+    { "date": "2026-06", "label": "实习结束 · 三项目全部交付", "type": "career" }
+  ]
+}
