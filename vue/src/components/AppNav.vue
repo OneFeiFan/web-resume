@@ -28,6 +28,11 @@ const items = [
       <span class="nav-tip">{{ item.label }}</span>
     </div>
     <div class="nav-spacer" />
+    <a href="https://github.com/OneFeiFan/web-resume" target="_blank" rel="noopener noreferrer"
+      class="nav-item" title="GitHub 开源" style="text-decoration:none">
+      <span style="font-size:.7rem;font-family:'JetBrains Mono',monospace;font-weight:400">GH</span>
+      <span class="nav-tip">GitHub</span>
+    </a>
     <button class="nav-btn" @click="store.toggleTheme()" :title="store.theme==='light'?'深色':'浅色'">
       {{ store.theme === 'light' ? '◐' : '◑' }}
     </button>

@@ -33,6 +33,16 @@ export default function Navigation() {
         );
       })}
       <div className="nav-spacer" />
+      <a
+        href="https://github.com/OneFeiFan/web-resume"
+        target="_blank" rel="noopener noreferrer"
+        className="nav-item"
+        title="GitHub 开源"
+        style={{ textDecoration: 'none' }}
+      >
+        <span style={{fontSize:'.7rem',fontFamily:'JetBrains Mono,monospace',fontWeight:400}}>GH</span>
+        <span className="nav-tip">GitHub</span>
+      </a>
       <button className="nav-btn" onClick={toggleTheme} title={theme==='light'?'深色模式':'浅色模式'}>
         {theme==='light'?'◐':'◑'}
       </button>

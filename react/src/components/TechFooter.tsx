@@ -13,6 +13,7 @@ export default function TechFooter() {
       <span>Built with </span>
       {TECHS.join(' · ')}
       <span style={{ marginLeft: '.8rem' }}>
+        · <a href="https://github.com/OneFeiFan/web-resume" target="_blank" rel="noopener noreferrer" style={{color:'inherit'}}>开源地址 ↗</a>
         · <a href="/about" style={{color:'inherit'}}>架构决策记录 →</a>
       </span>
       <span style={{ float: 'right' }}>
