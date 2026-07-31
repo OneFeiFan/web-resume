@@ -1,37 +1,40 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
 const scrollCache = new Map<string, number>();
 
-/**
- * Scroll management:
- * - New page (PUSH/REPLACE from nav bar or card click) → scroll to top
- * - Returning to visited page (PUSH from "返回首页" link) → restore scroll
- * - Browser back/forward (POP) → browser handles it naturally
- */
 export default function ScrollToTop() {
   const { pathname } = useLocation();
   const navType = useNavigationType();
-  const prevPath = useRef(pathname);
+  const saved = useRef(scrollCache.get(pathname));
 
-  useEffect(() => {
-    if (navType === 'POP') {
-      // Browser back/forward — browser handles scroll naturally
-    } else if (scrollCache.has(pathname)) {
-      // Returning to a previously visited page — restore scroll
-      requestAnimationFrame(() => {
-        window.scrollTo(0, scrollCache.get(pathname)!);
-      });
-    } else {
-      // First visit — scroll to top
-      window.scrollTo(0, 0);
-    }
-
-    // Save current scroll before leaving
-    const prev = prevPath.current;
+  // Save current scroll BEFORE unmount (useLayoutEffect runs synchronously)
+  useLayoutEffect(() => {
+    const prev = pathname;
     return () => {
       scrollCache.set(prev, window.scrollY);
     };
+  }, [pathname]);
+
+  // Handle scroll on mount
+  useEffect(() => {
+    if (navType === 'POP') return;
+
+    if (saved.current !== undefined) {
+      // Returning to visited page — restore with retry
+      const target = saved.current;
+      let tries = 0;
+      const restore = () => {
+        window.scrollTo(0, target);
+        tries++;
+        if (window.scrollY < target - 10 && tries < 8) {
+          requestAnimationFrame(restore);
+        }
+      };
+      requestAnimationFrame(restore);
+    } else {
+      window.scrollTo(0, 0);
+    }
   }, [pathname, navType]);
 
   return null;
