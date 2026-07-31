@@ -12,7 +12,7 @@
     { "category": "语言", "items": ["JavaScript (ES6+)", "TypeScript", "HTML5", "CSS3"] },
     { "category": "框架", "items": ["React 17", "Vue 2/3", "UniApp", "WePY", "Ant Design Pro", "Element"] },
     { "category": "移动端", "items": ["微信小程序", "蓝牙 BLE", "WiFi 配网", "Canvas 海报", "H5 适配"] },
-    { "category": "工程化", "items": ["Git", "Jenkins", "蓝湖", "TAPD", "语雀", "TailwindCSS", "Vite"] }
+    { "category": "工程化", "items": ["Git", "Webpack", "Jenkins", "蓝湖", "TAPD", "语雀", "TailwindCSS"] }
   ],
   "experience": {
     "company": "江苏亲近母语文化教育有限公司",

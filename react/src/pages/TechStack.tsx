@@ -1,19 +1,37 @@
 import { useResume } from '../hooks/useResume';
 
 /**
- * Robust match: skill appears in at least one project's techStack.
- * Normalizes both sides (lowercase, strip parens/symbols) and checks
- * word-level overlap — "Vue 2/3" matches "Vue 2", "Canvas 海报" matches "Canvas 2D".
+ * Hardcoded project counts — based on cross-referencing the 4 analyzed repos.
+ * mouse(React+TS后台) / h5_app(Vue2 H5) / xb_wx(WePY小程序) / intelligent-lab(UniApp)
  */
-function matchCount(skill: string, projects: { techStack: string[] }[]): number {
-  const skillWords = skill.toLowerCase().split(/[\s/()+-]+/).filter(Boolean);
-  return projects.filter((p) =>
-    p.techStack.some((t) => {
-      const tNorm = t.toLowerCase();
-      return skillWords.some((w) => tNorm.includes(w));
-    })
-  ).length;
-}
+const COUNTS: Record<string, number> = {
+  // 语言
+  'JavaScript (ES6+)': 4,
+  TypeScript: 1,
+  HTML5: 4,
+  CSS3: 4,
+  // 框架
+  'React 17': 1,
+  'Vue 2/3': 3,
+  UniApp: 1,
+  WePY: 1,
+  'Ant Design Pro': 1,
+  Element: 0,
+  // 移动端
+  '微信小程序': 1,
+  '蓝牙 BLE': 1,
+  'WiFi 配网': 1,
+  'Canvas 海报': 1,
+  'H5 适配': 1,
+  // 工程化
+  Git: 4,
+  Webpack: 3,
+  Jenkins: 0,
+  '蓝湖': 0,
+  TAPD: 0,
+  '语雀': 0,
+  TailwindCSS: 0,
+};
 
 export default function TechStack() {
   const { data } = useResume();
@@ -23,7 +41,6 @@ export default function TechStack() {
     <div>
       <h1 style={{color:'var(--c-primary)'}}>技术栈全景</h1>
 
-      {/* By category with project counts */}
       <div className="sec"><h2>按类别</h2></div>
       {skills.map((group) => (
         <div key={group.category} style={{marginBottom:'1.5rem'}}>
@@ -32,7 +49,7 @@ export default function TechStack() {
           </h3>
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:'.5rem'}}>
             {group.items.map((s) => {
-              const count = matchCount(s, projects);
+              const count = COUNTS[s] ?? 0;
               return (
                 <div key={s} className="skill-card">
                   <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline'}}>
@@ -52,7 +69,6 @@ export default function TechStack() {
         </div>
       ))}
 
-      {/* Per-project breakdown */}
       <div className="sec"><h2>按项目</h2></div>
       {projects.map((p) => (
         <div className="card" key={p.id}>
