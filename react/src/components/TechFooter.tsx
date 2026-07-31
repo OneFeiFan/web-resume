@@ -4,7 +4,7 @@
 
 const TECHS = [
   'React 19', 'TypeScript 5', 'Zustand', 'TanStack Query',
-  'React Router 7', 'TailwindCSS 3', 'Vite 8',
+  'React Router 7', 'TailwindCSS 3', 'Webpack',
 ];
 
 export default function TechFooter() {
