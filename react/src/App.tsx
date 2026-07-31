@@ -4,7 +4,9 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Navigation from './components/Navigation';
 import FrameworkSwitcher from './components/FrameworkSwitcher';
 import TechFooter from './components/TechFooter';
+import PrintBar from './components/PrintBar';
 import ScrollToTop from './components/ScrollToTop';
+import { useResumeStore } from './stores/useResumeStore';
 import { useTheme } from './hooks/useTheme';
 
 const Home = lazy(() => import('./pages/Home'));
@@ -20,16 +22,19 @@ const queryClient = new QueryClient({
 function Shell() {
   useTheme();
   const { pathname } = useLocation();
+  const viewMode = useResumeStore((s) => s.viewMode);
 
   const mainClass = ['app-main'];
   if (['/project/', '/tech-stack', '/timeline'].some(p => pathname.startsWith(p))) mainClass.push('wide');
   if (pathname === '/about') mainClass.push('wide');
+  if (viewMode === 'print') mainClass.push('print-mode');
 
   return (
     <>
       <ScrollToTop />
-      <Navigation />
+      {viewMode !== 'print' && <Navigation />}
       <main className={mainClass.join(' ')}>
+        <PrintBar />
         <FrameworkSwitcher />
         <Suspense fallback={<div style={{padding:'4rem 0',textAlign:'center',color:'#aaa'}}>Loading…</div>}>
           <Routes>

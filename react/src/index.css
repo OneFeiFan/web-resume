@@ -259,10 +259,29 @@
   .appear.visible { opacity:1; transform:translateY(0); }
 }
 
-/* ── Print extras ── */
+/* ── Print mode (preview & actual print) ── */
+.print-mode { max-width:680px !important; margin:0 auto; }
+.print-mode .no-print { display:none !important; }
+.print-mode .switcher { display:none; }
+.print-mode .exp-item { page-break-inside:avoid; }
+.print-mode .card { box-shadow:none; border:1px solid #ddd; }
+.print-mode .summary { background:none; border-left:2px solid #333; padding-left:1rem; }
+.print-mode .chip.on { background:#333; color:#fff; border-color:#333; }
+
 @media print {
+  @page { margin: 1.8cm 2cm; size: A4; }
+  html { font-size: 11pt; }
+  body { background:#fff; color:#111; }
+  .app-main { max-width:100% !important; margin:0 !important; padding:0 !important; }
+  .print-mode .no-print { display:none !important; }
+  .no-print { display:none !important; }
+  .card { box-shadow:none; border:1px solid #ddd; page-break-inside:avoid; }
+  .exp-item { page-break-inside:avoid; }
   .summary { background:none; border-left:2px solid #333; padding-left:1rem; }
-  .card { border:1px solid #ddd; }
+  .mets { grid-template-columns:repeat(4,1fr); }
+  h1 { font-size:1.8rem; }
+  .sec h2 { font-size:.65rem; }
+  a { color:inherit; text-decoration:none; }
 }
 
 /* ── Mobile ── */
