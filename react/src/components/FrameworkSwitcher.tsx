@@ -1,6 +1,6 @@
 /**
  * FrameworkSwitcher — 框架切换横幅
- * 在 React/Vue 版本间切换，展示「同一份数据 + 不同技术栈」的理念
+ * Vue 版部署后将独立 URL 填入下方链接
  */
 
 export default function FrameworkSwitcher() {
@@ -11,13 +11,10 @@ export default function FrameworkSwitcher() {
         <span className="text-outline-variant">|</span>
         <span>当前版本</span>
       </div>
-      <a
-        href={import.meta.env.PROD ? '/vue/' : 'https://onefeifan.gitee.io/web-resume/vue/'}
-        className="flex items-center gap-1.5 text-primary-50 hover:text-primary-30 font-medium transition-colors"
-      >
-        <span>切换到 Vue 3 版</span>
-        <span className="text-base">→</span>
-      </a>
+      <span className="flex items-center gap-1.5 text-secondary-40">
+        <span>Vue 3 版即将上线</span>
+        <span className="text-base">🔜</span>
+      </span>
     </div>
   );
 }

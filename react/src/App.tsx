@@ -41,7 +41,7 @@ function ThemeProvider({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter basename={import.meta.env.PROD ? '/react' : '/'}>
+      <BrowserRouter>
         <ThemeProvider>
           <div className="min-h-screen bg-surface text-secondary-20 transition-colors duration-300">
             <Navigation />
