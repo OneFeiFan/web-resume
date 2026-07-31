@@ -166,12 +166,13 @@
     { "title": "三等奖", "event": "中国大学生计算机设计大赛", "year": 2024 }
   ],
   "timeline": [
-    { "date": "2024-01", "label": "智能实验室项目启动", "type": "project" },
+    { "date": "2024-01", "label": "接手智能实验室项目", "type": "start" },
     { "date": "2024-08", "label": "智能实验室大规模重构", "type": "milestone" },
-    { "date": "2025-02", "label": "智能实验室卸任", "type": "project" },
-    { "date": "2026-03", "label": "入职亲近母语实习", "type": "career" },
+    { "date": "2025-02", "label": "卸任实验室项目", "type": "end" },
+    { "date": "2025-02", "label": "个人项目与毕设打磨", "type": "gap" },
+    { "date": "2026-03", "label": "入职亲近母语实习", "type": "start" },
     { "date": "2026-04", "label": "三项目并行启动", "type": "milestone" },
-    { "date": "2026-05", "label": "财务系统集中交付（28条提交）", "type": "milestone" },
-    { "date": "2026-06", "label": "实习结束 · 三项目全部交付", "type": "career" }
+    { "date": "2026-05", "label": "财务系统集中交付", "type": "milestone" },
+    { "date": "2026-06", "label": "实习结束 · 三项目全部交付", "type": "end" }
   ]
 }

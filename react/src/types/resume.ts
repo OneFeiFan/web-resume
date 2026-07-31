@@ -27,7 +27,7 @@ export interface Project {
 }
 
 export interface TimelineEvent {
-  date: string; label: string; type: 'project' | 'milestone' | 'career';
+  date: string; label: string; type: 'start' | 'end' | 'milestone' | 'gap';
 }
 
 export interface Award {
