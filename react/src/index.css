@@ -128,15 +128,16 @@
 }
 .tl-ghost { opacity:.5; }
 
-.tl-up { justify-content:flex-end; }
+/* Dot always at center of slot (= on axis). Card+stem extend away from it. */
 .tl-up .tl-card-new { order:0; flex-shrink:0; }
 .tl-up .tl-stem     { order:1; flex:1; min-height:1rem; }
 .tl-up .tl-dot-new  { order:2; flex-shrink:0; }
+.tl-up .tl-spacer   { order:3; flex:1; }
 
-.tl-down { justify-content:flex-start; }
-.tl-down .tl-dot-new  { order:0; flex-shrink:0; }
-.tl-down .tl-stem     { order:1; flex:1; min-height:1rem; }
-.tl-down .tl-card-new { order:2; flex-shrink:0; }
+.tl-down .tl-spacer   { order:0; flex:1; }
+.tl-down .tl-dot-new  { order:1; flex-shrink:0; }
+.tl-down .tl-stem     { order:2; flex:1; min-height:1rem; }
+.tl-down .tl-card-new { order:3; flex-shrink:0; }
 
 .tl-card-new {
   display:flex; flex-direction:column; align-items:center; text-align:center;
@@ -171,9 +172,10 @@
 
 /* Mobile — revert to vertical list with dot on left */
 @media (max-width: 840px) {
-  .tl-track-new { flex-direction:column; min-height:auto; padding:1rem 0 1rem 1.8rem; align-items:flex-start; }
-  .tl-track-new::before { left:1.8rem; right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
+  .tl-track-new { flex-direction:column; min-height:auto; padding:1rem 0 1rem 2.2rem; align-items:flex-start; }
+  .tl-track-new::before { left:calc(2.2rem + 5px); right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
   .tl-slot { flex-direction:row; width:100%; align-items:flex-start; gap:.8rem; }
+  .tl-spacer { display:none; }
   .tl-up .tl-card-new, .tl-down .tl-card-new { order:0; flex:0; }
   .tl-up .tl-stem, .tl-down .tl-stem { display:none; }
   .tl-up .tl-dot-new, .tl-down .tl-dot-new { order:0; flex-shrink:0; margin-top:.35rem; position:static; }

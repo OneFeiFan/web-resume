@@ -37,9 +37,11 @@ export default function Timeline() {
                     className={`tl-dot-new ${isGap ? 'tl-dot-dash' : ''}`}
                     style={{ borderColor: color, background: isGap ? 'var(--c-surface)' : color }}
                   />
+                  <div className="tl-spacer" />
                 </>
               ) : (
                 <>
+                  <div className="tl-spacer" />
                   <div
                     className={`tl-dot-new ${isGap ? 'tl-dot-dash' : ''}`}
                     style={{ borderColor: color, background: isGap ? 'var(--c-surface)' : color }}
