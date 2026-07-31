@@ -50,18 +50,23 @@ export default function TechStack() {
           <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:'.5rem'}}>
             {group.items.map((s) => {
               const count = COUNTS[s] ?? 0;
+              const isTooling = group.category === '工程化';
               return (
                 <div key={s} className="skill-card">
                   <div style={{display:'flex',justifyContent:'space-between',alignItems:'baseline'}}>
                     <span className="t1" style={{fontSize:'.85rem'}}>{s}</span>
-                    <span style={{fontFamily:'JetBrains Mono,monospace',fontSize:'.7rem'}} className="t4">
-                      {count} 项目
-                    </span>
+                    {!isTooling && (
+                      <span style={{fontFamily:'JetBrains Mono,monospace',fontSize:'.7rem'}} className="t4">
+                        {count} 项目
+                      </span>
+                    )}
                   </div>
-                  <div className="skill-bar">
-                    <div className="skill-bar-fill"
-                      style={{width:`${Math.min(100,(count/projects.length)*100)}%`}} />
-                  </div>
+                  {!isTooling && (
+                    <div className="skill-bar">
+                      <div className="skill-bar-fill"
+                        style={{width:`${Math.min(100,(count/projects.length)*100)}%`}} />
+                    </div>
+                  )}
                 </div>
               );
             })}
