@@ -13,55 +13,84 @@ export default function Timeline() {
   const totalCommits = projects.reduce((s, p) => s + (Number(p.metrics.commits) || 0), 0);
   const events = [...timeline].reverse();
 
+  // Split into above/below rows for alternating layout
+  const above: typeof events = [];
+  const below: typeof events = [];
+  events.forEach((e, i) => {
+    (i % 2 === 0 ? above : below).push(e);
+  });
+
   return (
     <div>
       <h1 style={{color:'var(--c-primary)'}}>时间线</h1>
 
-      {/* Horizontal anchored timeline */}
       <div className="sec"><h2>Journey</h2></div>
-      <div className="tl-h">
-        {/* Horizontal axis */}
-        <div className="tl-h-line" />
 
-        {events.map((e, i) => {
-          const isAbove = i % 2 === 0;
-          const isGap = e.type === 'gap';
-          const color = DOT_COLOR[e.type] || DOT_COLOR.milestone;
-
-          return (
-            <div
-              key={i}
-              className={`tl-h-event ${isAbove ? 'tl-above' : 'tl-below'} ${isGap ? 'tl-gap' : ''}`}
-              style={{ '--dot-color': color } as React.CSSProperties}
-            >
-              {/* Anchor dot on the axis */}
-              <div className={`tl-h-dot ${isGap ? 'tl-h-dot-gap' : ''}`} />
-
-              {/* Connector from dot to card */}
-              <div className={`tl-h-conn ${isAbove ? 'tl-conn-up' : 'tl-conn-down'}`} />
-
-              {/* Event card */}
-              <div className="tl-h-card">
-                <span className="tl-h-date">{e.date}</span>
-                <span className="tl-h-label">{e.label}</span>
+      <div className="tl-grid">
+        {/* Row above axis */}
+        <div className="tl-row">
+          {above.map((e, i) => {
+            const idx = i * 2; // original index
+            const isGap = e.type === 'gap';
+            const color = DOT_COLOR[e.type] || DOT_COLOR.milestone;
+            return (
+              <div key={idx} className={`tl-cell ${isGap ? 'tl-cell-gap' : ''}`}>
+                <div className="tl-card">
+                  <span className="tl-card-date">{e.date}</span>
+                  <span className="tl-card-label">{e.label}</span>
+                </div>
+                <div className="tl-connector">
+                  <div className="tl-connector-line" />
+                  <div
+                    className={`tl-dot ${isGap ? 'tl-dot-gap' : ''}`}
+                    style={{ borderColor: color, background: isGap ? 'transparent' : color }}
+                  />
+                </div>
               </div>
-            </div>
-          );
-        })}
+            );
+          })}
+        </div>
+
+        {/* Axis line */}
+        <div className="tl-axis" />
+
+        {/* Row below axis */}
+        <div className="tl-row">
+          {below.map((e, i) => {
+            const idx = i * 2 + 1;
+            const isGap = e.type === 'gap';
+            const color = DOT_COLOR[e.type] || DOT_COLOR.milestone;
+            return (
+              <div key={idx} className={`tl-cell ${isGap ? 'tl-cell-gap' : ''}`}>
+                <div className="tl-connector">
+                  <div
+                    className={`tl-dot ${isGap ? 'tl-dot-gap' : ''}`}
+                    style={{ borderColor: color, background: isGap ? 'transparent' : color }}
+                  />
+                  <div className="tl-connector-line" />
+                </div>
+                <div className="tl-card">
+                  <span className="tl-card-date">{e.date}</span>
+                  <span className="tl-card-label">{e.label}</span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
 
       {/* Legend */}
       <div className="tl-legend">
         <span className="tl-legend-item">
-          <span className="tl-h-dot" style={{position:'static',background:'var(--c-primary)',borderColor:'var(--c-primary)'}} />
+          <span className="tl-dot" style={{position:'static',display:'inline-block',background:'var(--c-primary)',borderColor:'var(--c-primary)'}} />
           <span className="t4">开始/里程碑</span>
         </span>
         <span className="tl-legend-item">
-          <span className="tl-h-dot" style={{position:'static',background:'var(--c-accent)',borderColor:'var(--c-accent)'}} />
+          <span className="tl-dot" style={{position:'static',display:'inline-block',background:'var(--c-accent)',borderColor:'var(--c-accent)'}} />
           <span className="t4">结束</span>
         </span>
         <span className="tl-legend-item">
-          <span className="tl-h-dot tl-h-dot-gap" style={{position:'static'}} />
+          <span className="tl-dot tl-dot-gap" style={{position:'static',display:'inline-block'}} />
           <span className="t4">过渡期</span>
         </span>
       </div>
