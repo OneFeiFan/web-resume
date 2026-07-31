@@ -15,7 +15,7 @@ export default function Header() {
             width: 80, height: 80, borderRadius: '50%',
             objectFit: 'cover', flexShrink: 0,
             border: '2px solid var(--c-border)',
-            imageRendering: 'auto',
+            imageRendering: '-webkit-optimize-contrast',
           }}
         />
         <div>
