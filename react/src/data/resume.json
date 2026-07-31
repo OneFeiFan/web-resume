@@ -66,6 +66,20 @@
           "decision": "TaskItem 从 466 行拆分为 WallModal(92行) + WorkModal(166行) + WorksDrawer(146行)。BookPlanConfig 使用 index 管理分组排序、lodash debounce 搜索。",
           "impact": "TaskItem 代码量减少 87%，3 个新组件各自职责单一。暑期高峰前完成全部功能交付。",
           "commits": ["19a6bb7d (+2304/-564, 16 files)", "f834dccb (index管理分组)"]
+        },
+        {
+          "title": "激励体系从零搭建：Modal+Drawer 嵌套的复杂交互架构",
+          "background": "阅读营需要激励体系提升参与度——成就面板、勋章配置、奖状模板、优秀作品墙。需要在 6 月集中交付，且涉及三级配置层级（列表→Modal→Drawer）的复杂交互。",
+          "decision": "采用父组件集中管理模式——achievementBoard 同时持有 modalVisible + medalDrawerVisible + certificateDrawerVisible 四个状态，确保 Modal 和 Drawer 的开关互不冲突。奖状条件配置使用动态表单支持自由增删条件项。作品墙加入防抖+节流双重优化防止重复请求。",
+          "impact": "6 月从零交付完整激励体系（16 条提交，3,500+ 行代码）。覆盖勋章和奖状 2 种激励类型，作品墙防抖+节流后无重复请求。",
+          "commits": ["a1c55d41 (+1673, 19 files)", "3a205fc3 (+407, 勋章奖状配置)"]
+        },
+        {
+          "title": "跨模块细粒度权限管控：从模块级到按钮级的 RBAC",
+          "background": "多个模块缺乏权限控制——F码兑换无权限限制、财务导出未按店铺隔离、班级管理解绑无校验。同时新开发的激励体系需要从零集成权限。",
+          "decision": "利用 UmiJS access.ts 模型——后端菜单树注册独立权限点，前端 useAccess() 获取路径权限后通过 access?.[API_PATH.XXX] 检查。核心策略：无权限时隐藏按钮而非置灰（用户研究显示置灰会造成困惑并反复提工单）。财务数据按店铺 ID 过滤，修复 2 处导出越权漏洞。",
+          "impact": "覆盖 4 大模块 12+ 操作入口，权限粒度从模块级到按钮级。修复 2 处数据导出越权漏洞，权限管理零线上事故。",
+          "commits": ["a99feda5 (权限管理)", "de873836 (财务对账规范权限)", "26e0098e (导出越权修复)"]
         }
       ]
     },
@@ -96,6 +110,13 @@
           "decision": "全局 CSS -webkit-text-size-adjust: 100% !important 禁用字体缩放。分享 URL 参数改用 encodeURIComponent。无限滚动增加 loading 锁。",
           "impact": "修复 7 个兼容性 Bug，5 条性能优化提交，占总量 39%。",
           "commits": ["fe8b2d6 (微信字体fix)", "f71a804 (无限加载死循环fix)"]
+        },
+        {
+          "title": "移动端排行表格交互方案：双列吸顶 + 横向滚动",
+          "background": "排行榜需在 375px 窄屏展示 6 列数据（排名/姓名/篇数/次数/天数/得分），传统堆叠或全表缩放均不适用——堆叠失去排行对比意义，全表缩放字体无法阅读。数据量可达数千条需分页加载。",
+          "decision": "排名+姓名双列 sticky（position:sticky;left:0），其余 4 列横向滚动——用户查看指标时始终能看到「谁排第几」。CSS sticky 原生支持零 JS 开销，不触发重排。无限滚动通过 scroll 事件+loading 锁实现，loading 期间忽略触底事件防止重复请求死循环。首日无数据显示「次日更新」提示而非空列表。",
+          "impact": "6 列数据在 375px 屏幕正常展示；sticky 方案零布局抖动；loading 锁防重复请求。双端排行榜共用同一交互方案。",
+          "commits": ["e5a2645 (暂无数据+吸顶)", "f71a804 (无限加载fix)", "a087e7f (列宽优化)"]
         }
       ]
     },
@@ -126,6 +147,20 @@
           "decision": "亲近母语采用页面直出+组件复用策略（addressPicker 三级联动、certModal 弹窗）。暑期活动采用流程化页面编排（选书→换书→还书）。分包策略控制主包体积。",
           "impact": "6 月 43 条提交（占总量 59%），两次大提交合计 +10,700 行/36 文件。",
           "commits": ["e8f87b92 (+5375/-269, 18 files)", "3f723559 (+3120, 9 files)"]
+        },
+        {
+          "title": "主动架构治理：Mixin 拆分 + Canvas 海报通用化",
+          "background": "初期为快速上线使用了 WePY mixin 共享逻辑，但 mixin 导致数据来源不透明、命名冲突风险、代码追踪困难。圈子海报组件逻辑硬编码，无法复用到个人记录和成就分享场景。",
+          "decision": "Mixin 拆分（+1,230/-0, 8 files）：将 mixin 中的 data/computed/methods 逐一分析归属，移入页面或组件文件，改用显式 props+events 替代隐式依赖。海报通用化（+1,200/-0, 4 files）：Canvas 绑制逻辑抽取为接受配置对象的通用函数，不同场景只需传入不同 posterType+data+size 即可生成对应海报。",
+          "impact": "两项重构合计 +2,430 行；海报从 1 场景扩展到 3 场景复用，减少约 60% 重复 Canvas 代码；Mixin 拆分后依赖关系从隐式变为显式。",
+          "commits": ["45eb54b4 (+1230, 8 files)", "c805ed74 (+1200, 4 files)"]
+        },
+        {
+          "title": "微信小程序性能优化：分包、Canvas 离屏与广告策略",
+          "background": "6 月新增 11 页面后主包接近 2MB 上限影响启动速度；Canvas 在低端机绑制超 500ms 阻塞 UI；广告每次启动都加载增加首屏负担。",
+          "decision": "将低频页面（暑期活动/证书表单等）移至 sub_pages7 分包目录，主包只保留高频入口。Canvas 绑制从同步阻塞改为 requestAnimationFrame 分帧执行。广告通过 storageKeeper 持久化上次展示时间，同日不重复展示。同时清理 10 处冗余 toast、简化登出持久化处理。",
+          "impact": "10 条 perf 提交覆盖 4 个优化维度；分包后主包 <2MB；广告展示次数减少约 50%。",
+          "commits": ["6cf48866 (重新分包)", "c1899878 (分包)", "77f3277d (广告隔天优化)"]
         }
       ]
     },
@@ -156,6 +191,20 @@
           "decision": "寒假独自在 Gitee 建立仓库测试 Git 工作流，返校后手把手教团队。兼任产品经理——分析需求、排列任务、「一人一文件」策略最小化冲突。",
           "impact": "个人贡献 162/236 提交（69%），系统已在导师课题组投入使用。7 次大规模重构（主页 1,254→399 行 -68%）。",
           "commits": ["9cebca9 (+399/-855, 主页重写 -68%)", "b3d5443 (+11/-137, Excel导出 -92%)"]
+        },
+        {
+          "title": "IoT 硬件通信全链路：蓝牙 BLE + WiFi 配网",
+          "background": "需要实现蓝牙设备扫描→连接→WiFi 密码发送→设备上线→远程控制的完整 IoT 链路。实际开发中遇到蓝牙无限初始化导致 App 卡死、设备重复扫描导致列表卡顿、配网输入框因数据流触发重渲染而反复刷新三个关键硬件通信 Bug。",
+          "decision": "蓝牙全局组件化（挂载为 Vue 全局组件实现多页面复用）。数据结构从 Array 改为 Map（以 deviceId 为 key 去重，解决重复渲染）。蓝牙初始化锁（isInitializing 标志位防重复调用 openBluetoothAdapter）。配网弹窗数据流解耦（输入框状态独立管理，不随设备列表更新而重置）。",
+          "impact": "蓝牙扫描成功率从约 70% 提升至 95%+；配网无需反复输入密码；蓝牙组件在 4 页面复用减少约 300 行重复代码。",
+          "commits": ["8a6dbd8 (蓝牙全局组件)", "5f54350 (Array→Map去重)", "2a6348f (无限初始化fix)", "4bd1fed (配网输入框fix)"]
+        },
+        {
+          "title": "uni-app 跨平台兼容：H5 与 APP-PLUS 双环境适配",
+          "background": "uni-app 在 IoT 场景面临严峻跨平台挑战——蓝牙 API 仅 APP-PLUS 可用、文件下载在 H5/APP 上机制完全不同、推送通知需原生能力、启动屏生命周期不一致。处理不当会致 H5 调试不工作或 App 运行时崩溃。",
+          "decision": "条件编译策略：使用 #ifdef H5 / #ifndef APP-PLUS 在编译期剔除不可用代码。文件下载双通道：H5 用 window.location.href 触发浏览器下载，APP-PLUS 用 plus.runtime.openURL 调用原生下载管理器。代码从 148 行 if-else 硬编码重构为统一工具函数（最终 11 行）。推送预注册（App.vue onLaunch 中预注册监听器以缓存消息）。",
+          "impact": "双环境核心功能均正常运行；Excel 导出从 148 行精简至 11 行（-92%）；H5 包不含蓝牙 API polyfill 减小体积。",
+          "commits": ["b3d5443 (+11/-137, -92%)", "3b5c878 (通知预注册)", "c6adb72 (启动屏优化)"]
         }
       ]
     }
