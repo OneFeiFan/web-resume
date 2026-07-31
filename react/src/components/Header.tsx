@@ -1,12 +1,8 @@
 import { useResume } from '../hooks/useResume';
-import { useImageColor } from '../hooks/useImageColor';
 
 export default function Header() {
   const { data } = useResume();
   const { personal } = data;
-
-  // Extract palette from avatar (falls back to default)
-  useImageColor('/avatar.jpg');
 
   return (
     <header style={{ marginBottom: '3rem' }}>

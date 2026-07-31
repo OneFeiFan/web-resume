@@ -5,7 +5,6 @@ import Navigation from './components/Navigation';
 import FrameworkSwitcher from './components/FrameworkSwitcher';
 import TechFooter from './components/TechFooter';
 import { useTheme } from './hooks/useTheme';
-import { useImageColor } from './hooks/useImageColor';
 
 const Home = lazy(() => import('./pages/Home'));
 const ProjectDetail = lazy(() => import('./pages/ProjectDetail'));
@@ -19,9 +18,6 @@ const queryClient = new QueryClient({
 
 function Shell() {
   useTheme();
-
-  // Extract dynamic palette from avatar using Canvas + tonal algorithm
-  useImageColor('/avatar.jpg');
 
   return (
     <>
