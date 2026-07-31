@@ -6,11 +6,24 @@ export default function Header() {
 
   return (
     <header style={{ marginBottom: '3rem' }}>
-      <h1 style={{ color: 'var(--c-primary)' }}>{personal.name}</h1>
-      <p style={{ fontSize: '1rem', marginTop: '.3rem' }} className="t3">
-        {personal.title} · {personal.location}
-      </p>
-      <p style={{ fontSize: '.82rem', marginTop: '.2rem', fontFamily: "'JetBrains Mono',monospace" }} className="t3">
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem', marginBottom: '1rem' }}>
+        <img
+          src="/avatar.jpg"
+          alt=""
+          style={{
+            width: 80, height: 80, borderRadius: '50%',
+            objectFit: 'cover', flexShrink: 0,
+            border: '2px solid var(--c-border)',
+          }}
+        />
+        <div>
+          <h1 style={{ color: 'var(--c-primary)' }}>{personal.name}</h1>
+          <p className="t3" style={{ fontSize: '1rem', marginTop: '.3rem' }}>
+            {personal.title} · {personal.location}
+          </p>
+        </div>
+      </div>
+      <p style={{ fontSize: '.82rem', marginTop: '.5rem', fontFamily: "'JetBrains Mono',monospace" }} className="t3">
         {personal.email} · {personal.phone}
       </p>
       <p style={{ fontSize: '.82rem', marginTop: 0 }} className="t3">
