@@ -16,7 +16,7 @@ export default function PrintBar() {
 
   return (
     <div
-      className="no-print"
+      className="print-toolbar"
       style={{
         position: 'sticky', top: 0, zIndex: 50,
         background: '#2A2D32', color: '#fff',

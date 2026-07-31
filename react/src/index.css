@@ -268,11 +268,14 @@
 .print-mode .summary { background:none; border-left:2px solid #333; padding-left:1rem; }
 .print-mode .chip.on { background:#333; color:#fff; border-color:#333; }
 
+.print-toolbar { } /* visible in preview, hidden via @media print */
+
 @media print {
   @page { margin: 1.8cm 2cm; size: A4; }
   html { font-size: 11pt; }
   body { background:#fff; color:#111; }
   .app-main { max-width:100% !important; margin:0 !important; padding:0 !important; }
+  .print-toolbar { display:none !important; }
   .print-mode .no-print { display:none !important; }
   .no-print { display:none !important; }
   .card { box-shadow:none; border:1px solid #ddd; page-break-inside:avoid; }
