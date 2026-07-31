@@ -20,8 +20,8 @@ const queryClient = new QueryClient({
 function Shell() {
   useTheme();
 
-  // Extract dynamic palette from avatar (actual image would be served from public/)
-  useImageColor(null);
+  // Extract dynamic palette from avatar using Canvas + tonal algorithm
+  useImageColor('/avatar.jpg');
 
   return (
     <>
