@@ -172,7 +172,7 @@
 /* Mobile — revert to vertical list with dot on left */
 @media (max-width: 840px) {
   .tl-track-new { flex-direction:column; min-height:auto; padding:1rem 0 1rem 1.8rem; align-items:flex-start; }
-  .tl-track-new::before { left:.35rem; right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
+  .tl-track-new::before { left:1.8rem; right:auto; top:.8rem; bottom:.8rem; width:2px; height:auto; transform:none; }
   .tl-slot { flex-direction:row; width:100%; align-items:flex-start; gap:.8rem; }
   .tl-up .tl-card-new, .tl-down .tl-card-new { order:0; flex:0; }
   .tl-up .tl-stem, .tl-down .tl-stem { display:none; }
