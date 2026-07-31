@@ -2,99 +2,75 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Project } from '../types/resume';
 
-interface Props {
-  project: Project;
-  viewMode: 'interactive' | 'print';
-}
+interface Props { project: Project; }
 
-export default function ProjectCard({ project, viewMode }: Props) {
+const METRIC_KEYS: Record<string, string> = {
+  commits: '提交', insertions: '+行', deletions: '-行', files: '文件',
+  domains: '业务域', total_repo_commits: '总提交', contribution: '贡献占比', team_size: '团队',
+};
+
+export default function ProjectCard({ project }: Props) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
 
-  const metrics = project.metrics;
-  const metricLabels: Record<string, string> = {
-    commits: '提交', insertions: '+行', deletions: '-行', files: '文件',
-    domains: '业务域', total_repo_commits: '总提交', contribution: '贡献占比',
-    team_size: '团队',
-  };
-
   return (
-    <article className="m3-card p-6 mb-4">
-      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
-        <div>
-          <h3 className="text-m3-title text-secondary-20 font-medium">{project.name}</h3>
-          <p className="text-sm text-secondary-50 mt-0.5">
-            {project.period} · {project.role}
-          </p>
-        </div>
-        <div className="flex flex-wrap gap-2 text-xs font-mono">
-          {Object.entries(metrics).map(([k, v]) => (
-            <span key={k} className="bg-primary-95 text-primary-30 px-2 py-0.5 rounded">
-              {metricLabels[k] || k}: {v}
-            </span>
+    <article className="card">
+      <div className="proj-hdr">
+        <h3>{project.name}</h3>
+        <div style={{display:'flex',gap:'.6rem',flexWrap:'wrap'}}>
+          {Object.entries(project.metrics).filter(([,v]) => v !== undefined).map(([k, v]) => (
+            <div key={k} style={{textAlign:'center'}}>
+              <div className="met-num" style={{fontSize:'1.1rem'}}>{v}</div>
+              <div className="met-lbl">{METRIC_KEYS[k] || k}</div>
+            </div>
           ))}
         </div>
       </div>
 
-      <p className="text-sm text-secondary-40 mb-3">{project.summary}</p>
+      <p className="proj-period">{project.period} · {project.role}</p>
+      <p className="card-summary" style={{marginTop:'.4rem'}}>{project.summary}</p>
 
-      {viewMode === 'interactive' && (
-        <>
-          <div className="flex flex-wrap gap-1.5 mb-4">
-            {project.techStack.map(t => (
-              <span key={t} className="text-xs bg-surface-container text-secondary-50 px-2 py-0.5 rounded-m3-sm font-mono">
-                {t}
-              </span>
-            ))}
-          </div>
+      <div className="proj-tags">
+        {project.techStack.map((t) => (
+          <span key={t} className="proj-tag">{t}</span>
+        ))}
+      </div>
 
-          <div className="flex gap-3 mb-2">
-            {!expanded && (
-              <button
-                onClick={() => setExpanded(true)}
-                className="text-sm text-primary-50 hover:text-primary-30 font-medium transition-colors"
-              >
-                ▸ 展开深度案例 ({project.cases.length})
-              </button>
-            )}
-            <button
-              onClick={() => navigate(`/project/${project.id}`)}
-              className="text-sm text-primary-50 hover:text-primary-30 font-medium transition-colors"
-            >
-              → 完整项目页
-            </button>
-          </div>
+      <div className="no-print" style={{marginTop:'.8rem',display:'flex',gap:'1rem'}}>
+        {!expanded ? (
+          <a onClick={() => setExpanded(true)} style={{fontSize:'.78rem',cursor:'pointer'}}>
+            ▸ 展开深度案例 ({project.cases.length})
+          </a>
+        ) : (
+          <a onClick={() => setExpanded(false)} style={{fontSize:'.78rem',cursor:'pointer'}}>
+            ▾ 收起
+          </a>
+        )}
+        <a onClick={() => navigate(`/project/${project.id}`)} style={{fontSize:'.78rem',cursor:'pointer'}}>
+          → 完整项目页
+        </a>
+      </div>
 
-          {expanded && (
-            <div className="space-y-4 mt-3 pt-3 border-t border-outline-variant">
-              <button
-                onClick={() => setExpanded(false)}
-                className="text-xs text-secondary-50 hover:text-secondary-30 mb-2"
-              >
-                ▾ 收起
-              </button>
-              {project.cases.map((c, i) => (
-                <div key={i} className="bg-surface-container rounded-m3-md p-4">
-                  <h4 className="font-medium text-secondary-20 mb-2">{c.title}</h4>
-                  <div className="space-y-2 text-sm text-secondary-40">
-                    <p><span className="text-primary-40 font-medium">背景：</span>{c.background}</p>
-                    <p><span className="text-primary-40 font-medium">决策：</span>{c.decision}</p>
-                    <p><span className="text-primary-40 font-medium">成果：</span>{c.impact}</p>
-                  </div>
-                  {c.commits.length > 0 && (
-                    <div className="mt-2 flex flex-wrap gap-1">
-                      {c.commits.map(cm => (
-                        <code key={cm.slice(0,8)} className="text-xs bg-surface-bright px-1.5 py-0.5 rounded font-mono text-secondary-50">
-                          {cm}
-                        </code>
-                      ))}
-                    </div>
-                  )}
+      {expanded && (
+        <div style={{marginTop:'.8rem'}}>
+          {project.cases.map((c, i) => (
+            <div className="case" key={i}>
+              <h4>
+                <span className="case-label">{`0${i + 1}`}</span> {c.title}
+              </h4>
+              <p><span className="case-label">背景</span> {c.background}</p>
+              <p><span className="case-label">决策</span> {c.decision}</p>
+              <p><span className="case-label">成果</span> {c.impact}</p>
+              {c.commits.length > 0 && (
+                <div className="proj-tags">
+                  {c.commits.map((cm) => (
+                    <span key={cm.slice(0,8)} className="proj-tag">{cm}</span>
+                  ))}
                 </div>
-              ))}
+              )}
             </div>
-          )}
-        </>
+          ))}
+        </div>
       )}
     </article>
   );

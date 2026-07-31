@@ -1,11 +1,11 @@
 import { useLocation, useNavigate } from 'react-router-dom';
 import { useResumeStore } from '../stores/useResumeStore';
 
-const NAV_ITEMS = [
-  { path: '/', icon: '📄', label: '简历' },
-  { path: '/tech-stack', icon: '🛠', label: '技术栈' },
-  { path: '/timeline', icon: '📅', label: '时间线' },
-  { path: '/about', icon: '⚙', label: '关于' },
+const ITEMS = [
+  { path: '/', label: '简历', icon: 'CV' },
+  { path: '/tech-stack', label: '技术栈', icon: 'TS' },
+  { path: '/timeline', label: '时间线', icon: 'TL' },
+  { path: '/about', label: '关于', icon: 'AB' },
 ];
 
 export default function Navigation() {
@@ -15,32 +15,27 @@ export default function Navigation() {
   const toggleTheme = useResumeStore((s) => s.toggleTheme);
 
   return (
-    <nav className="nav-rail">
-      <div className="mb-4 text-xl font-bold text-primary-40 font-mono select-none">WF</div>
-      {NAV_ITEMS.map((item) => (
-        <div
-          key={item.path}
-          className={`nav-rail-item ${pathname === item.path ? 'active' : ''}`}
-          onClick={() => navigate(item.path)}
-          title={item.label}
-        >
-          <span className="text-base">{item.icon}</span>
-          <span>{item.label}</span>
-        </div>
-      ))}
-      <div className="mt-auto flex flex-col items-center gap-3">
-        <button
-          onClick={toggleTheme}
-          className="w-10 h-10 rounded-m3-full flex items-center justify-center
-                     hover:bg-surface-container transition-colors text-lg"
-          title={theme === 'light' ? '切换深色模式' : '切换浅色模式'}
-        >
-          {theme === 'light' ? '🌙' : '☀'}
-        </button>
-        <div className="text-[10px] text-secondary-50 text-center leading-tight">
-          M3
-        </div>
-      </div>
+    <nav className="nav-rail no-print">
+      <div className="nav-mono">WF</div>
+      {ITEMS.map((item) => {
+        const active = pathname === item.path;
+        return (
+          <div
+            key={item.path}
+            className={`nav-item${active ? ' active' : ''}`}
+            onClick={() => navigate(item.path)}
+          >
+            <span style={{fontSize:'.7rem',fontFamily:'JetBrains Mono,monospace',fontWeight:active?600:400}}>
+              {item.icon}
+            </span>
+            <span className="nav-tip">{item.label}</span>
+          </div>
+        );
+      })}
+      <div className="nav-spacer" />
+      <button className="nav-btn" onClick={toggleTheme} title={theme==='light'?'深色模式':'浅色模式'}>
+        {theme==='light'?'◐':'◑'}
+      </button>
     </nav>
   );
 }
