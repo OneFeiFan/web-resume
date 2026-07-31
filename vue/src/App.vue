@@ -3,12 +3,14 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useResumeStore } from './stores/useResumeStore';
 import { useTheme } from './composables/useTheme';
+import { useScrollManager } from './composables/useScrollManager';
 import AppNav from './components/AppNav.vue';
 import PrintBar from './components/PrintBar.vue';
 import FrameworkSwitcher from './components/FrameworkSwitcher.vue';
 import TechFooter from './components/TechFooter.vue';
 
 useTheme();
+useScrollManager();
 const route = useRoute();
 const store = useResumeStore();
 
