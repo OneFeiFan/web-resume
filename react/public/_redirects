@@ -1,0 +1,2 @@
+# Cloudflare Pages SPA fallback — all /react/* routes to index.html
+/react/*  /react/index.html  200
