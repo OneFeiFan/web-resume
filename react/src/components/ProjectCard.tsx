@@ -28,7 +28,7 @@ export default function ProjectCard({ project }: Props) {
       </div>
 
       <p className="proj-period">{project.period} · {project.role}</p>
-      <p className="card-summary" style={{marginTop:'.4rem'}}>{project.summary}</p>
+      <p className="t2" style={{fontSize:'.85rem',marginTop:'.4rem',lineHeight:1.7}}>{project.summary}</p>
 
       <div className="proj-tags">
         {project.techStack.map((t) => (
@@ -55,9 +55,7 @@ export default function ProjectCard({ project }: Props) {
         <div style={{marginTop:'.8rem'}}>
           {project.cases.map((c, i) => (
             <div className="case" key={i}>
-              <h4>
-                <span className="case-label">{`0${i + 1}`}</span> {c.title}
-              </h4>
+              <h4><span className="case-label">0{i + 1}</span> {c.title}</h4>
               <p><span className="case-label">背景</span> {c.background}</p>
               <p><span className="case-label">决策</span> {c.decision}</p>
               <p><span className="case-label">成果</span> {c.impact}</p>

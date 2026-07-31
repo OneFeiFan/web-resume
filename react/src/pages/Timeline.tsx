@@ -14,7 +14,7 @@ export default function Timeline() {
         <div className="tl" key={i}>
           <div className={`tl-dot${e.type !== 'project' ? ' on' : ''}`} />
           <span className="tl-date">{e.date}</span>
-          <span style={{fontSize:'.85rem'}}>{e.label}</span>
+          <span className="t2" style={{fontSize:'.85rem'}}>{e.label}</span>
         </div>
       ))}
 

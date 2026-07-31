@@ -12,13 +12,12 @@ export default function Home() {
     <div>
       <Header />
 
-      {/* Skills */}
       <SkillChips />
 
       {/* Experience */}
       <div className="sec"><h2>Experience</h2></div>
       <div style={{ marginBottom: '1.5rem' }}>
-        <h3>{experience.company}</h3>
+        <h3 className="t1">{experience.company}</h3>
         <p className="proj-period">{experience.role} · {experience.period}</p>
       </div>
       {experience.bullets.map((b, i) => (
@@ -36,7 +35,7 @@ export default function Home() {
         <ProjectCard key={p.id} project={p} />
       ))}
 
-      {/* Commit Feed — signature element */}
+      {/* Commit Feed */}
       <div className="sec"><h2>Commit Log</h2></div>
       <CommitFeed />
 
@@ -50,9 +49,8 @@ export default function Home() {
         </div>
       ))}
 
-      {/* Print-only footer */}
-      <div className="print-only" style={{display:'none',marginTop:'2rem',fontSize:'.7rem',color:'#999',borderTop:'1px solid #ddd',paddingTop:'.8rem'}}>
-        此简历由真实 Git 工程数据生成 · 基于 4 个项目 369 条提交 · {new Date().toISOString().slice(0,10)}
+      <div className="print-only" style={{display:'none',marginTop:'2rem',fontSize:'.7rem',color:'var(--t4)',borderTop:'1px solid #ddd',paddingTop:'.8rem'}}>
+        此简历由真实 Git 工程数据生成 · 基于 4 个项目 369 条提交
       </div>
     </div>
   );
