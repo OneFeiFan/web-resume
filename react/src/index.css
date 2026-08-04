@@ -45,9 +45,17 @@
 }
 
 /* Halftone dot accent — old-newspaper ink feel, used sparingly on blocks */
+/* ── Halftone ink-dot effect (Ana Tudor technique) ── */
+/*
+ * Three-property halftone: radial dot pattern + blend map + contrast filter.
+ * Creates the hard-edged ink dots characteristic of newspaper/Risograph printing.
+ * Used sparingly on editorial blocks, not globally.
+ */
 .halftone {
-  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
-  background-size: 4px 4px;
+  background:
+    radial-gradient(closest-side, rgba(0,0,0,0.2), transparent) 0/ 6px 6px space,
+    linear-gradient(90deg, rgba(0,0,0,0.06), transparent 60%);
+  background-blend-mode: multiply;
 }
 
 /* ── 2. Design Tokens ──────────────────── */
@@ -992,7 +1000,10 @@ a:hover { color: var(--red); }
     repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 3px);
 }
 .dark .halftone {
-  background-image: radial-gradient(circle, rgba(255,255,255,0.06) 1px, transparent 1px);
+  background:
+    radial-gradient(closest-side, rgba(255,255,255,0.2), transparent) 0/ 6px 6px space,
+    linear-gradient(90deg, rgba(255,255,255,0.05), transparent 60%);
+  background-blend-mode: screen;
 }
 
 .dark .nav-bar { background: #1E1C1A; border-color: #38342E; }
