@@ -98,8 +98,6 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  /* Use background-color (not shorthand) — preserves the paper texture image */
-  background-color: var(--paper);
 }
 
 body {
