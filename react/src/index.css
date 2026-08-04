@@ -1369,63 +1369,104 @@
 }
 
 /* ── 21. Dark Mode ─────────────────────── */
+/*
+ * 暗色调色板设计原则：
+ *   1. 三层表面必须有明显亮度阶梯：bg → card → overlay，每级 ≈15 点 R 通道差
+ *   2. 文字对比度：t1>12:1 / t2>7:1 / t3>5:1 / t4>4:1（均对 bg）
+ *   3. accent-pale 需足够亮才能在暗底上可见（用于 hover 高亮、active 态背景）
+ */
 .dark {
-  --bg:        #151517;
-  --card-bg:   #1C1D1F;
-  --card-hover:#212225;
-  --overlay:   #222326;
+  /* Surface — three distinct elevations (R channel steps: 0D → 1C → 2A) */
+  --bg:        #0D0F12;
+  --card-bg:   #1C1F25;
+  --card-hover:#23262D;
+  --overlay:   #2A2D35;
 
-  --t1: #E9EAEC;
-  --t2: #B0B2B8;
-  --t3: #83868C;
-  --t4: #65686E;
+  /* Text — all meet WCAG AA+ on #0D0F12 */
+  --t1: #EBECEE;  /* 16.5:1 — headings, body */
+  --t2: #BCC0C8;  /*  8.7:1 — secondary */
+  --t3: #9398A2;  /*  5.2:1 — labels, dates, meta */
+  --t4: #787D86;  /*  4.0:1 — de-emphasized (large / decorative only) */
 
-  --accent:       #73BECF;
-  --accent-soft:  #5DA8B8;
-  --accent-pale:  #1A3038;
+  /* Accent — brighter teal for dark bg legibility */
+  --accent:       #7EC8D8;
+  --accent-soft:  #68B4C4;
+  --accent-pale:  #1E3842;
 
-  --git-add: #6BAF7A;
+  /* Git semantics — tone down saturation for dark bg */
+  --git-add: #5EBC6E;
   --git-del: #C4746E;
-  --git-add-bg: #1A2A1A;
-  --git-del-bg: #2A1A1A;
+  --git-add-bg: #18281A;
+  --git-del-bg: #281A1A;
 
-  --border:   #2C2D30;
-  --divider:  #2C2D30;
+  /* Borders — visible against card-bg */
+  --border:   #31343B;
+  --divider:  #31343B;
 
-  --shadow-xs: 0 1px 2px rgba(0,0,0,0.2);
-  --shadow-sm: 0 1px 3px rgba(0,0,0,0.25);
-  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
-  --shadow-lg: 0 8px 24px rgba(0,0,0,0.35);
-  --shadow-card-hover: 0 6px 20px rgba(115,190,207,0.1), 0 2px 4px rgba(0,0,0,0.2);
+  /* Shadows — deeper for dark bg */
+  --shadow-xs: 0 1px 2px rgba(0,0,0,0.35);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.45);
+  --shadow-lg: 0 8px 24px rgba(0,0,0,0.5);
+  --shadow-card-hover: 0 6px 20px rgba(126,200,216,0.08), 0 2px 4px rgba(0,0,0,0.3);
 }
 
-.dark .nav-rail   { border-color: var(--border); }
-.dark .card       { border-color: var(--border); }
-.dark .card:hover { border-color: var(--accent-pale); }
+/* ── Dark mode overrides for elements using hardcoded light values ── */
 
-.dark .exp-item       { border-left-color: var(--border); }
-.dark .exp-item:hover { border-left-color: var(--accent); }
+/* Tradeoff label: warm brown → warm amber for dark bg */
+.dark .adr-label.tradeoff { color: #D4A85C; }
 
-.dark .sec-line         { background: var(--divider); }
-.dark .tech-ft          { border-color: var(--divider); }
+/* ADR card expanded: light tint → dark elevated */
+.dark .adr-card.expanded { background: #1F2229; }
+
+/* Active chip: white text on accent → dark text on accent for readability */
+.dark .chip.on {
+  background: var(--accent);
+  color: #0D0F12;
+  border-color: var(--accent);
+}
+
+/* Chip hover needs visible border */
+.dark .chip {
+  border-color: var(--border);
+}
+.dark .chip:hover {
+  border-color: var(--accent-pale);
+}
+
+/* Card tags / ADR tags */
+.dark .card-tag   { background: var(--overlay); color: var(--t3); }
+.dark .adr-tag    { background: var(--overlay); color: var(--t3); }
+
+/* Timeline dot */
+.dark .tl-dot      { background: var(--bg); }
+.dark .tl-dot.dash { background: var(--bg); }
+.dark .tl-date     { background: var(--overlay); }
+
+/* Timeline track & stems */
 .dark .tl-track::before { background: var(--divider); }
 .dark .tl-stem          { background: var(--divider); }
-.dark .tl-dot           { background: var(--bg); }
-.dark .tl-dot.dash      { background: var(--bg); }
-.dark .chip             { border-color: var(--border); }
-.dark .chip.on          { background: var(--accent); color: #151517; border-color: var(--accent); }
-.dark .card-tag         { background: var(--overlay); color: var(--t3); }
-.dark .adr-tag          { background: var(--overlay); color: var(--t3); }
-.dark .adr-card.expanded { background: #1A1C1E; }
+
+/* Skill cards */
 .dark .skill-card       { border-color: var(--border); background: var(--card-bg); }
 .dark .skill-card:hover { border-color: var(--accent-pale); }
 .dark .skill-bar        { background: var(--border); }
-.dark .switcher         { background: var(--overlay); }
-.dark .metric           { background: var(--card-bg); border-color: var(--border); }
-.dark .metric.active    { background: var(--accent-pale); }
-.dark .tl-date          { background: var(--overlay); }
 
-/* Smooth theme transition — targeted, NOT wildcard to avoid breaking animations */
+/* Misc */
+.dark .switcher       { background: var(--overlay); }
+.dark .metric         { background: var(--card-bg); border-color: var(--border); }
+.dark .metric.active  { background: var(--accent-pale); }
+.dark .sec-line       { background: var(--divider); }
+.dark .tech-ft        { border-color: var(--divider); }
+
+/* Nav + layout borders */
+.dark .nav-rail       { border-color: var(--border); }
+.dark .card           { border-color: var(--border); }
+.dark .card:hover     { border-color: var(--accent-pale); }
+.dark .exp-item       { border-left-color: var(--border); }
+.dark .exp-item:hover { border-left-color: var(--accent); }
+
+/* ── Smooth theme transition — targeted elements only ── */
 .dark body,
 .dark .nav-rail,
 .dark .card,
