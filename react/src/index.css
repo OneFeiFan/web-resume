@@ -844,7 +844,7 @@ a:hover { color: var(--red); }
 }
 
 /* ── 15. Toolbar row (framework + print) ── */
-/* ── 15. Top bar — version fills most, print beside it ── */
+/* ── 15. Top bar — soft version bar + print button ── */
 .top-bar {
   display: flex;
   align-items: center;
@@ -854,32 +854,37 @@ a:hover { color: var(--red); }
 
 .top-bar-ver {
   flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--sp-2) var(--sp-4);
+  font-size: var(--text-sm);
+  color: var(--ink-muted);
+  background: var(--paper-deeper);
+  border-radius: 2px;
 }
 
-/* Both elements share the same visual weight */
-.top-bar-item {
+.top-bar-ver a {
+  color: var(--ink-muted);
+  font-size: var(--text-sm);
+  text-decoration: none;
+}
+
+.top-bar-ver a:hover { color: var(--red); }
+
+.top-bar-btn {
   border: 1px solid var(--rule);
   background: var(--paper);
   color: var(--ink-muted);
   padding: 3px 14px;
+  cursor: pointer;
   font-size: var(--text-sm);
   font-family: inherit;
   border-radius: 2px;
   transition: border-color 0.15s, color 0.15s;
-  text-decoration: none;
-  cursor: pointer;
-  line-height: 1.4;
 }
 
-.top-bar-item:hover { border-color: var(--rule-strong); color: var(--ink); }
-
-.top-bar-item a {
-  color: var(--ink-muted);
-  font-size: var(--text-sm);
-  text-decoration: none;
-}
-
-.top-bar-item a:hover { color: var(--red); }
+.top-bar-btn:hover { border-color: var(--rule-strong); color: var(--ink); }
 
 /* ── 16. Metrics bar (timeline stats) ──── */
 .metrics-bar {
@@ -987,8 +992,9 @@ a:hover { color: var(--red); }
 .dark .hero-summary { background: #262421; }
 .dark .tl-date { background: #262421; }
 .dark .print-toolbar { background: #1E1C1A; border-color: #38342E; }
-.dark .top-bar-item { border-color: #38342E; background: #1E1C1A; color: #8A8478; }
-.dark .top-bar-item:hover { border-color: #4A4540; color: #B8B2A6; }
+.dark .top-bar-ver { background: #262421; }
+.dark .top-bar-btn { border-color: #38342E; background: #1E1C1A; color: #8A8478; }
+.dark .top-bar-btn:hover { border-color: #4A4540; color: #B8B2A6; }
 
 /* Awards — ensure badge is readable on dark bg */
 .dark .award-badge { background: #3F2A22; }
