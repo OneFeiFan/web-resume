@@ -27,7 +27,7 @@ export default function PrintBar() {
 
   return (
     <div
-      className="print-toolbar no-print"
+      className="print-toolbar"
       style={{
         position: 'sticky', top: 0, zIndex: 50,
         display: 'flex', alignItems: 'center', gap: '0.8rem',
