@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { computed } from 'vue';
 import { useRouter, useRoute } from 'vue-router';
 import { useResumeStore } from '../stores/useResumeStore';
 
@@ -13,7 +14,9 @@ const items = [
   { path: '/about',      label: '关于' },
 ];
 
-const isWide = ['/project/', '/tech-stack', '/timeline', '/about'].some(p => route.path.startsWith(p));
+const isWide = computed(() =>
+  ['/project/', '/tech-stack', '/timeline', '/about'].some(p => route.path.startsWith(p))
+);
 </script>
 
 <template>
