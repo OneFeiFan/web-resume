@@ -1544,6 +1544,7 @@ body {
   .switcher { font-size: 0.7rem; padding: var(--space-1) var(--space-3); }
   .sec { margin: var(--space-8) 0 var(--space-4); }
   .skill-grid { grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); }
+  .skill-cat { display: block; width: 100%; margin-right: 0; margin-bottom: var(--space-1); }
 }
 
 @media (max-width: 480px) {
