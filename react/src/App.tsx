@@ -1,5 +1,5 @@
 import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, useLocation, Navigate } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Navigation from './components/Navigation';
 import TechFooter from './components/TechFooter';
@@ -57,6 +57,7 @@ function Shell() {
             <Route path="/tech-stack" element={<TechStack />} />
             <Route path="/timeline" element={<Timeline />} />
             <Route path="/about" element={<About />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
           </Routes>
         </Suspense>
         <TechFooter />
