@@ -68,7 +68,7 @@ function Shell() {
 export default function App() {
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
+      <BrowserRouter basename="/react/">
         <Shell />
       </BrowserRouter>
     </QueryClientProvider>
