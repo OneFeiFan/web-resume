@@ -93,24 +93,32 @@
 }
 
 /* ── 3. Base Layer ─────────────────────── */
+/*
+ * html & body MUST stay out of @layer base.
+ * CSS cascade: layered styles < unlayered styles.
+ * If Tailwind preflight or any unlayered CSS sets a body background,
+ * it would silently override the @layer base rule — hence the white bg in dark mode.
+ */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-size: 17px;
+  text-rendering: optimizeLegibility;
+  /* Ensure root is never white when dark mode toggles */
+  background: var(--bg);
+}
+
+body {
+  background: var(--bg);
+  color: var(--t1);
+  font-family: 'Inter', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
+  line-height: 1.7;
+  margin: 0;
+  overflow-x: hidden;
+}
+
 @layer base {
-  html {
-    scroll-behavior: smooth;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    font-size: 17px;
-    text-rendering: optimizeLegibility;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--t1);
-    font-family: 'Inter', 'PingFang SC', 'Noto Sans SC', 'Microsoft YaHei', system-ui, sans-serif;
-    line-height: 1.7;
-    margin: 0;
-    overflow-x: hidden;
-  }
-
   /* Heading hierarchy */
   h1, h2, h3, h4 { font-weight: 600; line-height: 1.2; margin: 0; color: var(--t1); }
 
