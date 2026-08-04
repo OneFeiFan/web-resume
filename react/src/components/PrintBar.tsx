@@ -23,7 +23,7 @@ export default function PrintBar() {
   }
 
   return (
-    <div className="print-toolbar no-print" style={{ position: 'sticky', top: 0, zIndex: 30 }}>
+    <div className="print-toolbar" style={{ position: 'sticky', top: 0, zIndex: 30 }}>
       <span style={{ color: 'var(--ink-muted)', fontSize: 'var(--text-xs)' }}>打印预览 · A4</span>
       <div style={{ flex: 1 }} />
       <button onClick={toggleViewMode} style={{
