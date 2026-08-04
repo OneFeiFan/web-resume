@@ -15,7 +15,7 @@ const router = createRouter({
     if (savedPosition) return savedPosition;
     // Restore cached position for this route
     const cached = scrollCache.get(to.path);
-    if (cached !== undefined) return { top: cached, behavior: 'smooth' as const };
+    if (cached !== undefined) return { top: cached };
     return { top: 0 };
   },
 });
