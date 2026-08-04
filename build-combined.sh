@@ -4,9 +4,12 @@ set -e
 rm -rf dist
 
 echo "⚛ Building React..."
-cd react && npm install --silent && npx vite build --outDir ../dist --base ./ && cd ..
+cd react && npm install --silent && npx vite build --outDir ../dist/react && cd ..
 
 echo "💚 Building Vue..."
-cd vue && npm install --silent && npx vite build --outDir ../dist/vue --base /vue/ && cd ..
+cd vue && npm install --silent && npx vite build --outDir ../dist/vue && cd ..
 
-echo "✅ dist/ ready: React at /, Vue at /vue/"
+# Preserve root landing page
+cp index.html dist/
+
+echo "✅ dist/ ready: Landing at /, React at /react/, Vue at /vue/"
