@@ -24,8 +24,10 @@ const mainClass = computed(() => {
   <main :class="mainClass">
     <PrintBar v-if="store.viewMode === 'print'" />
     <div v-else class="top-bar no-print">
-      <span class="top-bar-ver">💚 Vue 3 版</span>
-      <a href="/react/" class="top-bar-btn" style="text-decoration:none">React 版 →</a>
+      <div class="top-bar-ver">
+        <span>💚 Vue 3 版</span>
+        <a href="/react/">React 版 →</a>
+      </div>
       <button @click="store.toggleViewMode()" class="top-bar-btn">打印预览</button>
     </div>
     <router-view v-slot="{ Component }">
