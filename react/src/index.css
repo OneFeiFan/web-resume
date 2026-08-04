@@ -1382,7 +1382,12 @@ body {
  *   1. 三层表面必须有明显亮度阶梯：bg → card → overlay，每级 ≈15 点 R 通道差
  *   2. 文字对比度：t1>12:1 / t2>7:1 / t3>5:1 / t4>4:1（均对 bg）
  *   3. accent-pale 需足够亮才能在暗底上可见（用于 hover 高亮、active 态背景）
+ *
+ *   ⚠️ html/body 背景用硬编码直写（不用 var(--bg)），
+ *   因为 CSS cascade 中变量链路会被各种规则覆盖，原始版本已证明直写才可靠。
  */
+.dark html,
+.dark body { background: #0D0F12; }
 .dark {
   /* Surface — three distinct elevations (R channel steps: 0D → 1C → 2A) */
   --bg:        #0D0F12;
