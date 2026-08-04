@@ -830,7 +830,8 @@ a:hover { color: var(--red); }
 .award-badge {
   font-family: 'JetBrains Mono', monospace;
   font-size: 0.65rem;
-  padding: 1px 8px;
+  line-height: 1;
+  padding: 2px 8px 3px;
   border: 1px solid var(--red);
   color: var(--red);
   border-radius: 2px;
