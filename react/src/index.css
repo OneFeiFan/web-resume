@@ -167,7 +167,7 @@ a:hover { color: var(--red); }
 /* ── 4. Layout ─────────────────────────── */
 .app-main {
   margin: 0 auto;
-  padding: var(--sp-12) var(--gutter) var(--sp-16);
+  padding: var(--sp-6) var(--gutter) var(--sp-16);
   max-width: var(--measure);
   width: 100%;
   min-height: 100vh;
