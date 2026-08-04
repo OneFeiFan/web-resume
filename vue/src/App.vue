@@ -26,7 +26,7 @@ const mainClass = computed(() => {
     <div v-else class="top-bar no-print">
       <div class="top-bar-ver">
         <span style="display:inline-flex;align-items:center;gap:4px">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><polygon points="12,4 22,8 20,20 12,22 4,20 2,8" fill="#41B883" stroke="#35495E" stroke-width="0.6"/><path d="M12 5L6 8l1 9 5 1.5 5-1.5 1-9z" fill="#35495E"/></svg>
+          <svg width="14" height="14" viewBox="0 0 32 32" fill="none"><path d="M2 4L16 28L30 4L24.67 4L16 18.4L7.33 4Z" fill="#41B883"/><path d="M7.33 4L16 18.4L24.67 4H18.67L16 8.4L13.33 4Z" fill="#35495E"/></svg>
           Vue 3 版
         </span>
         <a href="/react/">React 版 →</a>
