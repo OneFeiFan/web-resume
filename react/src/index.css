@@ -844,19 +844,16 @@ a:hover { color: var(--red); }
 }
 
 /* ── 15. Toolbar row (framework + print) ── */
-/* ── 15. Top bar — version + print, matched pair ── */
+/* ── 15. Top bar — version fills most, print beside it ── */
 .top-bar {
   display: flex;
   align-items: center;
   gap: var(--sp-4);
   margin-bottom: var(--sp-8);
-  max-width: 400px;
-  width: 100%;
 }
 
 .top-bar-ver {
   flex: 1;
-  text-align: center;
 }
 
 /* Both elements share the same visual weight */
