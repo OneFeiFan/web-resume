@@ -43,9 +43,9 @@ function Shell() {
         {viewMode === 'print' ? (
           <PrintBar />
         ) : (
-          <div className="toolbar-row no-print">
-            <span className="toolbar-pill">⚛ React 版 · <a href="/vue/">Vue 3 →</a></span>
-            <button onClick={toggleViewMode} className="toolbar-pill toolbar-btn">打印预览</button>
+          <div className="top-bar no-print">
+            <span>⚛ React 版</span>
+            <span><a href="/vue/">Vue 3 版 →</a>　<button onClick={toggleViewMode} className="top-bar-btn">打印预览</button></span>
           </div>
         )}
         <Suspense fallback={<LoadingFallback />}>
