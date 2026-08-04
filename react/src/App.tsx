@@ -44,7 +44,7 @@ function Shell() {
         ) : (
           <div className="top-bar no-print">
             <div className="top-bar-ver">
-              <span style="display:inline-flex;align-items:center;gap:4px">
+              <span style={{ display: 'inline-flex', alignItems: 'center', gap: 4 }}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><ellipse cx="12" cy="12" rx="3" ry="10"/><ellipse cx="12" cy="12" rx="3" ry="10" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="3" ry="10" transform="rotate(120 12 12)"/><circle cx="12" cy="12" r="2" fill="currentColor" stroke="none"/></svg>
                 React 版
               </span>
