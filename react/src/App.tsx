@@ -37,6 +37,7 @@ function Shell() {
   return (
     <>
       <ScrollToTop />
+      <div className="noise-overlay" aria-hidden="true" />
       {viewMode !== 'print' && <Navigation />}
       <main className={mainClass.join(' ')}>
         {viewMode === 'print' ? (

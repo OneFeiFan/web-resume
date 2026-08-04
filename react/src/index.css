@@ -21,30 +21,27 @@
  *   produces Perlin-noise-like grain without any external assets.
  */
 
-/* ── Paper grain: dual-layer dot matrix ── */
+/* ── 1. Paper texture: SVG noise overlay (DOM element) ── */
 /*
- * Layer 1 (html):  coarse grain — 3px-spaced dots at 4% opacity.
- * Layer 2 (body::after):  fine grain — 2px-spaced dots at 2.5% opacity,
- *   positioned fixed on top of everything.
- *
- * Using radial-gradient instead of SVG feTurbulence because
- * CSS gradients render reliably across all browsers and can't
- * be accidentally covered by a background-color.
+ * A real <div> element (not pseudo-element) with SVG feTurbulence noise.
+ * Rendered at z-index: 9999, fixed, pointer-events: none.
+ * The SVG rect's opacity controls grain intensity.
+ * Reference: Gemini code sample — this approach is proven to work.
  */
-html {
-  background-color: var(--paper);
-  background-image: radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1px);
-  background-size: 4px 4px;
-}
-
-body::after {
-  content: '';
+.noise-overlay {
   position: fixed;
   inset: 0;
   z-index: 9999;
   pointer-events: none;
-  background-image: radial-gradient(circle, rgba(0,0,0,0.05) 0.5px, transparent 0.5px);
-  background-size: 2px 2px;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.05'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+}
+
+/* Halftone dot accent — old-newspaper ink feel, used sparingly on blocks */
+.halftone {
+  background-image: radial-gradient(circle, rgba(0,0,0,0.06) 1px, transparent 1px);
+  background-size: 4px 4px;
 }
 
 /* ── 2. Design Tokens ──────────────────── */
@@ -977,8 +974,12 @@ a:hover { color: var(--red); }
   --rule-strong:  #4A4540;
 }
 
-.dark html { background-image: radial-gradient(circle, rgba(255,255,255,0.07) 1px, transparent 1px); }
-.dark body::after { background-image: radial-gradient(circle, rgba(255,255,255,0.04) 0.5px, transparent 0.5px); }
+.dark .noise-overlay {
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.06'/%3E%3C/svg%3E");
+}
+.dark .halftone {
+  background-image: radial-gradient(circle, rgba(255,255,255,0.05) 1px, transparent 1px);
+}
 
 .dark .nav-bar { background: #1E1C1A; border-color: #38342E; }
 .dark .chip.on { background: #3A2820; }
@@ -1012,7 +1013,7 @@ a:hover { color: var(--red); }
   @page { margin: 1.8cm 2cm; size: A4; }
   html { font-size: 11pt; }
   body { background: #fff !important; color: #111 !important; }
-  body::after { display: none; }
+  .noise-overlay { display: none; }
   .app-main { max-width: 100% !important; margin: 0 !important; padding: 0 !important; }
   .no-print { display: none !important; }
   .print-toolbar { display: none !important; }
