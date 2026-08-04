@@ -6,29 +6,25 @@ export default function Header() {
 
   return (
     <header className="hero">
-      <div style={{ display: 'flex', alignItems: 'flex-start', gap: '1.5rem', marginBottom: '1rem' }}>
+      <div className="hero-row">
         <img
           src="/avatar.jpg"
           alt="头像"
-          width={80} height={80}
-          style={{
-            width: 80, height: 80, borderRadius: '50%',
-            objectFit: 'cover', flexShrink: 0,
-            border: '2px solid var(--border)',
-          }}
+          width={72} height={72}
+          className="hero-avatar"
         />
         <div>
           <h1 className="hero-name">{personal.name}</h1>
           <p className="hero-sub">{personal.title} · {personal.location}</p>
-          <p className="hero-contact">
+          <div className="hero-meta">
             <span>{personal.email}</span>
             <span>{personal.phone}</span>
-          </p>
+          </div>
         </div>
       </div>
-      <p className="hero-contact" style={{ marginTop: 0 }}>
+      <div className="hero-meta" style={{ marginTop: 'var(--sp-2)' }}>
         {personal.education}
-      </p>
+      </div>
       <p className="hero-summary">{personal.summary}</p>
     </header>
   );

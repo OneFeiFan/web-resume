@@ -20,11 +20,7 @@ const queryClient = new QueryClient({
 });
 
 function LoadingFallback() {
-  return (
-    <div className="loading-placeholder">
-      Loading…
-    </div>
-  );
+  return <div className="loading-placeholder">Loading…</div>;
 }
 
 function Shell() {
@@ -33,14 +29,13 @@ function Shell() {
   const viewMode = useResumeStore((s) => s.viewMode);
 
   const mainClass = ['app-main'];
-  if (['/project/', '/tech-stack', '/timeline'].some((p) => pathname.startsWith(p))) {
+  if (['/project/', '/tech-stack', '/timeline', '/about'].some((p) => pathname.startsWith(p))) {
     mainClass.push('wide');
   }
-  if (pathname === '/about') mainClass.push('wide');
   if (viewMode === 'print') mainClass.push('print-mode');
 
   return (
-    <div className="app-shell">
+    <>
       <ScrollToTop />
       {viewMode !== 'print' && <Navigation />}
       <main className={mainClass.join(' ')}>
@@ -57,7 +52,7 @@ function Shell() {
         </Suspense>
         <TechFooter />
       </main>
-    </div>
+    </>
   );
 }
 

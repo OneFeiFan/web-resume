@@ -1,6 +1,5 @@
-import { useState, useCallback } from 'react';
+import { useState } from 'react';
 import { useResumeStore } from '../stores/useResumeStore';
-import { useScrollReveal } from '../hooks/useScrollReveal';
 
 const DECISIONS = [
   {
@@ -25,101 +24,77 @@ const DECISIONS = [
 
 function AdrCard({ decision, index }: { decision: typeof DECISIONS[0]; index: number }) {
   const [expanded, setExpanded] = useState(false);
-  const handleToggle = useCallback(() => setExpanded((prev) => !prev), []);
 
   return (
     <div
-      className={`adr-card${expanded ? ' expanded' : ''}`}
-      onClick={handleToggle}
+      className="adr-card"
+      onClick={() => setExpanded(!expanded)}
       role="button"
       tabIndex={0}
       aria-expanded={expanded}
-      onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleToggle(); } }}
+      onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); setExpanded(!expanded); } }}
     >
-      <div className="adr-badge">
-        ADR-{String(index + 1).padStart(2, '0')}
-      </div>
+      <div className="adr-badge">ADR-{String(index + 1).padStart(2, '0')}</div>
       <h3>{decision.title}</h3>
 
-      {/* Expandable detail — the "open letter" effect */}
-      <div className="adr-detail">
-        <div className="adr-detail-inner">
-          <p>
-            <span className="adr-label">选择</span>
-            {' '}{decision.why}
-          </p>
-          <p>
-            <span className="adr-label tradeoff">权衡</span>
-            {' '}{decision.tradeoff}
-          </p>
+      {expanded && (
+        <div className="adr-detail" style={{ marginTop: 'var(--sp-4)' }}>
+          <p><span className="adr-label">选择</span> {decision.why}</p>
+          <p><span className="adr-label" style={{ color: 'var(--ink-soft)' }}>权衡</span> {decision.tradeoff}</p>
           <div className="adr-tags">
             {decision.tags.map((t) => (
               <span key={t} className="adr-tag">{t}</span>
             ))}
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
 
 export default function About() {
   const recentProjects = useResumeStore((s) => s.recentProjects);
-  const heroRef = useScrollReveal<HTMLDivElement>();
-  const adrRef = useScrollReveal<HTMLDivElement>();
-  const dataRef = useScrollReveal<HTMLDivElement>();
-  const trailRef = useScrollReveal<HTMLDivElement>();
 
   return (
     <div>
-      <div ref={heroRef} className="reveal">
-        <h1 style={{ fontWeight: 300, letterSpacing: '-0.02em' }}>关于本站</h1>
-        <p style={{ fontSize: 'var(--text-base)', color: 'var(--t3)', marginTop: '0.3rem', marginBottom: '2rem' }}>
-          本 Portfolio 不仅是简历展示，更是一个刻意运用现代前端工程技术的示范项目。每项技术决策都有其理由和权衡。
+      <h1 style={{ fontFamily: "'Noto Serif SC', serif", color: 'var(--ink)' }}>关于本站</h1>
+      <p style={{ fontSize: 'var(--text-base)', color: 'var(--ink-soft)', marginTop: 'var(--sp-2)', marginBottom: 'var(--sp-8)' }}>
+        本 Portfolio 不仅是简历展示，更是一个刻意运用现代前端工程技术的示范项目。每项技术决策都有其理由和权衡。
+      </p>
+
+      <div className="section-head">
+        <span className="section-label">Architecture Decisions</span>
+        <span className="section-rule" />
+      </div>
+      {DECISIONS.map((d, i) => (
+        <AdrCard key={i} decision={d} index={i} />
+      ))}
+
+      <div className="section-head">
+        <span className="section-label">Data Source</span>
+        <span className="section-rule" />
+      </div>
+      <div className="card">
+        <p style={{ fontSize: 'var(--text-base)', color: 'var(--ink-soft)', lineHeight: 1.7 }}>
+          所有数据来自 Git 提交历史自动提取的结构化档案。每一条数据都可追溯到具体的 commit hash。
         </p>
       </div>
 
-      {/* ADR — Signature element */}
-      <div ref={adrRef} className="reveal">
-        <div className="sec">
-          <h2>Architecture Decisions</h2>
-          <div className="sec-line" />
-        </div>
-        {DECISIONS.map((d, i) => (
-          <AdrCard key={i} decision={d} index={i} />
-        ))}
-      </div>
-
-      {/* Data Source */}
-      <div ref={dataRef} className="reveal">
-        <div className="sec">
-          <h2>Data Source</h2>
-          <div className="sec-line" />
-        </div>
-        <div className="card">
-          <p style={{ fontSize: 'var(--text-base)', color: 'var(--t2)', lineHeight: 1.7 }}>
-            所有数据来自 <code style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.75rem', background: 'var(--overlay)', padding: '1px 6px', borderRadius: 3, color: 'var(--t2)' }}>~/career-vault/projects/</code> 下 {4} 个项目的结构化 JSON 档案，
-            由 Git 提交历史自动提取。每一条数据都可追溯到具体的 commit hash。
-          </p>
-        </div>
-      </div>
-
-      {/* User trail */}
       {recentProjects.length > 0 && (
-        <div ref={trailRef} className="reveal">
-          <div className="sec">
-            <h2>Your Trail</h2>
-            <div className="sec-line" />
+        <>
+          <div className="section-head">
+            <span className="section-label">Your Trail</span>
+            <span className="section-rule" />
           </div>
-          <p style={{ fontSize: 'var(--text-xs)', color: 'var(--t4)', marginBottom: '0.5rem' }}>
+          <p style={{ fontSize: 'var(--text-xs)', color: 'var(--ink-faint)', marginBottom: 'var(--sp-2)' }}>
             存储在浏览器 localStorage · 不上传任何数据
           </p>
-          <div className="skill-row">
+          <div className="chip-row">
             {recentProjects.map((id) => (
               <a key={id} href={`/project/${id}`} className="chip">{id}</a>
             ))}
           </div>
-        </div>
+        </>
       )}
     </div>
   );
