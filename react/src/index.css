@@ -846,8 +846,10 @@ a:hover { color: var(--red); }
 /* ── 15. Toolbar row (framework + print) ── */
 .toolbar-row {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: var(--sp-2);
+  width: 100%;
+  max-width: 280px;
   margin-bottom: var(--sp-5);
   padding: var(--sp-1) 0;
 }
