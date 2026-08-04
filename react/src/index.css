@@ -52,9 +52,11 @@
  * Used sparingly on editorial blocks, not globally.
  */
 .halftone {
-  background:
-    radial-gradient(closest-side, rgba(0,0,0,0.2), transparent) 0/ 6px 6px space,
+  background-image:
+    radial-gradient(closest-side, rgba(0,0,0,0.2), transparent),
     linear-gradient(90deg, rgba(0,0,0,0.06), transparent 60%);
+  background-size: 6px 6px, 100% 100%;
+  background-repeat: repeat, no-repeat;
   background-blend-mode: multiply;
 }
 
@@ -338,7 +340,7 @@ a:hover { color: var(--red); }
   line-height: 1.8;
   margin-top: var(--sp-6);
   padding: var(--sp-4) var(--sp-5);
-  background: var(--paper-deeper);
+  background-color: var(--paper-deeper);
   border-left: 3px solid var(--rule-strong);
   font-style: italic;
 }
@@ -559,7 +561,7 @@ a:hover { color: var(--red); }
 
 /* Expanded case — simple appearance, no animation */
 .card-case {
-  background: var(--paper-deeper);
+  background-color: var(--paper-deeper);
   padding: var(--sp-4) var(--sp-5);
   margin-top: var(--sp-4);
   border-radius: 2px;
@@ -1000,16 +1002,18 @@ a:hover { color: var(--red); }
     repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 3px);
 }
 .dark .halftone {
-  background:
-    radial-gradient(closest-side, rgba(255,255,255,0.2), transparent) 0/ 6px 6px space,
+  background-image:
+    radial-gradient(closest-side, rgba(255,255,255,0.2), transparent),
     linear-gradient(90deg, rgba(255,255,255,0.05), transparent 60%);
+  background-size: 6px 6px, 100% 100%;
+  background-repeat: repeat, no-repeat;
   background-blend-mode: screen;
 }
 
 .dark .nav-bar { background: #1E1C1A; border-color: #38342E; }
 .dark .chip.on { background: #3A2820; }
-.dark .card-case { background: #262421; }
-.dark .hero-summary { background: #262421; }
+.dark .card-case { background-color: #262421; }
+.dark .hero-summary { background-color: #262421; }
 .dark .tl-date { background: #262421; }
 .dark .print-toolbar { background: #1E1C1A; border-color: #38342E; }
 .dark .top-bar-ver { background: #262421; }
