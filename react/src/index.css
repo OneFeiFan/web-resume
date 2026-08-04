@@ -846,12 +846,20 @@ a:hover { color: var(--red); }
 /* ── 15. Toolbar row (framework + print) ── */
 .toolbar-row {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
-  width: 100%;
-  max-width: 280px;
   margin-bottom: var(--sp-5);
-  padding: var(--sp-1) 0;
+}
+
+.toolbar-right {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+}
+
+.toolbar-ver {
+  min-width: 180px;
+  text-align: center;
 }
 
 /* Both sides share the same button-like pill style */
