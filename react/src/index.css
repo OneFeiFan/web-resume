@@ -64,8 +64,8 @@
   --rule-strong: #D4CFC8;
 
   /* Layout */
-  --measure:     720px;
-  --measure-wide:880px;
+  --measure:     640px;   /* optimal line length for reading */
+  --measure-wide:780px;
   --gutter:      1.5rem;
 
   /* Type scale (15px base on mobile, 17px on desktop) */
