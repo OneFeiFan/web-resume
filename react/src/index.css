@@ -848,8 +848,15 @@ a:hover { color: var(--red); }
 .top-bar {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--sp-4);
   margin-bottom: var(--sp-8);
+  max-width: 400px;
+  width: 100%;
+}
+
+.top-bar-ver {
+  flex: 1;
+  text-align: center;
 }
 
 /* Both elements share the same visual weight */
