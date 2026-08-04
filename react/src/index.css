@@ -873,18 +873,18 @@ a:hover { color: var(--red); }
 .top-bar-ver a:hover { color: var(--red); }
 
 .top-bar-btn {
-  border: 1px solid var(--rule);
-  background: var(--paper);
+  background: var(--paper-deeper);
   color: var(--ink-muted);
-  padding: 3px 14px;
+  padding: var(--sp-2) var(--sp-4);
   cursor: pointer;
   font-size: var(--text-sm);
   font-family: inherit;
+  border: none;
   border-radius: 2px;
-  transition: border-color 0.15s, color 0.15s;
+  transition: color 0.15s;
 }
 
-.top-bar-btn:hover { border-color: var(--rule-strong); color: var(--ink); }
+.top-bar-btn:hover { color: var(--red); }
 
 /* ── 16. Metrics bar (timeline stats) ──── */
 .metrics-bar {
@@ -993,8 +993,8 @@ a:hover { color: var(--red); }
 .dark .tl-date { background: #262421; }
 .dark .print-toolbar { background: #1E1C1A; border-color: #38342E; }
 .dark .top-bar-ver { background: #262421; }
-.dark .top-bar-btn { border-color: #38342E; background: #1E1C1A; color: #8A8478; }
-.dark .top-bar-btn:hover { border-color: #4A4540; color: #B8B2A6; }
+.dark .top-bar-btn { background: #262421; color: #8A8478; }
+.dark .top-bar-btn:hover { color: var(--red); }
 
 /* Awards — ensure badge is readable on dark bg */
 .dark .award-badge { background: #3F2A22; }
