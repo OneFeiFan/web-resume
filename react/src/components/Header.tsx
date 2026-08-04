@@ -25,7 +25,7 @@ export default function Header() {
       <div className="hero-meta" style={{ marginTop: 'var(--sp-2)' }}>
         {personal.education}
       </div>
-      <p className="hero-summary halftone">{personal.summary}</p>
+      <p className="hero-summary">{personal.summary}</p>
     </header>
   );
 }

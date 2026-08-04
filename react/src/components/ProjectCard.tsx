@@ -61,7 +61,7 @@ export default function ProjectCard({ project }: Props) {
       </div>
 
       {expanded && project.cases.map((c, i) => (
-        <div className="card-case halftone" key={i}>
+        <div className="card-case" key={i}>
           <h4>{String(i + 1).padStart(2, '0')} · {c.title}</h4>
           <p><span className="card-case-label">背景</span> {c.background}</p>
           <p><span className="card-case-label">决策</span> {c.decision}</p>

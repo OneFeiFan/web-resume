@@ -45,21 +45,6 @@
 }
 
 /* Halftone dot accent — old-newspaper ink feel, used sparingly on blocks */
-/* ── Halftone ink-dot effect (Ana Tudor technique) ── */
-/*
- * Three-property halftone: radial dot pattern + blend map + contrast filter.
- * Creates the hard-edged ink dots characteristic of newspaper/Risograph printing.
- * Used sparingly on editorial blocks, not globally.
- */
-.halftone {
-  background-image:
-    radial-gradient(closest-side, rgba(0,0,0,0.2), transparent),
-    linear-gradient(90deg, rgba(0,0,0,0.06), transparent 60%);
-  background-size: 6px 6px, 100% 100%;
-  background-repeat: repeat, no-repeat;
-  background-blend-mode: multiply;
-}
-
 /* ── 2. Design Tokens ──────────────────── */
 :root {
   /* Paper & Ink */
@@ -1000,14 +985,6 @@ a:hover { color: var(--red); }
   background-image:
     url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.10'/%3E%3C/svg%3E"),
     repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(255,255,255,0.015) 2px, rgba(255,255,255,0.015) 3px);
-}
-.dark .halftone {
-  background-image:
-    radial-gradient(closest-side, rgba(255,255,255,0.2), transparent),
-    linear-gradient(90deg, rgba(255,255,255,0.05), transparent 60%);
-  background-size: 6px 6px, 100% 100%;
-  background-repeat: repeat, no-repeat;
-  background-blend-mode: screen;
 }
 
 .dark .nav-bar { background: #1E1C1A; border-color: #38342E; }
