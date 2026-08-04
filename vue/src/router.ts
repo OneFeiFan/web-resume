@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
+const scrollCache = new Map<string, number>();
+
 const router = createRouter({
   history: createWebHistory('/vue/'),
   routes: [
@@ -9,10 +11,20 @@ const router = createRouter({
     { path: '/timeline', name: 'timeline', component: () => import('./pages/Timeline.vue') },
     { path: '/about', name: 'about', component: () => import('./pages/AboutPage.vue') },
   ],
-  scrollBehavior(_to, _from, savedPosition) {
+  scrollBehavior(to, from, savedPosition) {
     if (savedPosition) return savedPosition;
+    // Restore cached position for this route
+    const cached = scrollCache.get(to.path);
+    if (cached !== undefined) return { top: cached, behavior: 'smooth' as const };
     return { top: 0 };
   },
+});
+
+// Save scroll position before leaving
+router.beforeEach((_to, from) => {
+  if (from.path) {
+    scrollCache.set(from.path, window.scrollY);
+  }
 });
 
 export default router;
