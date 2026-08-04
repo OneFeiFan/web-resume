@@ -13,15 +13,14 @@ const COUNTS: Record<string, number> = {
 
 <template>
   <div>
-    <h1 style="color:var(--c-primary)">技术栈全景</h1>
-    <div class="sec"><h2>按类别</h2></div>
-    <div v-for="g in skills" :key="g.category" style="margin-bottom:1.5rem">
-      <h3 class="t4" style="font-size:.78rem;margin-bottom:.5rem;font-family:'JetBrains Mono',monospace">{{ g.category }}</h3>
-      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.5rem">
-        <div v-for="s in g.items" :key="s" class="skill-card">
+    <h1 style="font-family:'Noto Serif SC',serif">技术栈全景</h1>
+    <div v-for="g in skills" :key="g.category" style="margin-bottom:var(--sp-6)">
+      <span class="skill-cat">{{ g.category }}</span>
+      <div class="skill-grid">
+        <div v-for="s in g.items" :key="s" class="skill-cell">
           <div style="display:flex;justify-content:space-between;align-items:baseline">
-            <span class="t1" style="font-size:.85rem">{{ s }}</span>
-            <span v-if="g.category !== '工程化'" class="t4" style="font-family:'JetBrains Mono',monospace;font-size:.7rem">{{ COUNTS[s] ?? 0 }} 项目</span>
+            <span class="skill-cell-name">{{ s }}</span>
+            <span v-if="g.category !== '工程化'" class="skill-cell-count">{{ COUNTS[s] ?? 0 }} 项目</span>
           </div>
           <div v-if="g.category !== '工程化'" class="skill-bar">
             <div class="skill-bar-fill" :style="{width:(Math.min(100,(COUNTS[s]??0)/projects.length*100))+'%'}" />
@@ -30,14 +29,17 @@ const COUNTS: Record<string, number> = {
       </div>
     </div>
 
-    <div class="sec"><h2>按项目</h2></div>
+    <div class="section-head">
+      <span class="section-label">By Project</span>
+      <span class="section-rule" />
+    </div>
     <div v-for="p in projects" :key="p.id" class="card">
-      <div class="proj-hdr">
+      <div class="card-header">
         <h3>{{ p.name }}</h3>
-        <span class="proj-period">{{ p.period }}</span>
+        <span class="card-period">{{ p.period }}</span>
       </div>
-      <div class="proj-tags">
-        <span v-for="t in p.techStack" :key="t" class="proj-tag">{{ t }}</span>
+      <div class="card-tags">
+        <span v-for="t in p.techStack" :key="t" class="card-tag">{{ t }}</span>
       </div>
     </div>
   </div>

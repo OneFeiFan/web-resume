@@ -3,14 +3,11 @@ import { computed } from 'vue';
 import { useRoute } from 'vue-router';
 import { useResumeStore } from './stores/useResumeStore';
 import { useTheme } from './composables/useTheme';
-import { useScrollManager } from './composables/useScrollManager';
 import AppNav from './components/AppNav.vue';
 import PrintBar from './components/PrintBar.vue';
-import FrameworkSwitcher from './components/FrameworkSwitcher.vue';
 import TechFooter from './components/TechFooter.vue';
 
 useTheme();
-useScrollManager();
 const route = useRoute();
 const store = useResumeStore();
 
@@ -25,8 +22,12 @@ const mainClass = computed(() => {
 <template>
   <AppNav v-if="store.viewMode !== 'print'" />
   <main :class="mainClass">
-    <PrintBar />
-    <FrameworkSwitcher />
+    <PrintBar v-if="store.viewMode === 'print'" />
+    <div v-else class="top-bar no-print">
+      <span class="top-bar-ver">💚 Vue 3 版</span>
+      <a href="/react/" class="top-bar-btn" style="text-decoration:none">React 版 →</a>
+      <button @click="store.toggleViewMode()" class="top-bar-btn">打印预览</button>
+    </div>
     <router-view v-slot="{ Component }">
       <template v-if="Component">
         <suspense>

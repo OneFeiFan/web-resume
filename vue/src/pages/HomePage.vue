@@ -13,28 +13,34 @@ const { experience, awards } = data;
     <AppHeader />
     <SkillChips />
 
-    <div class="sec"><h2>Experience</h2></div>
-    <div style="margin-bottom:1.5rem">
-      <h3 class="t1">{{ experience.company }}</h3>
-      <p class="proj-period">{{ experience.role }} · {{ experience.period }}</p>
+    <div class="section-head">
+      <span class="section-label">Experience</span>
+      <span class="section-rule" />
+    </div>
+    <div class="exp-header">
+      <h3>{{ experience.company }}</h3>
+      <p class="exp-period">{{ experience.role }} · {{ experience.period }}</p>
     </div>
     <div v-for="(b, i) in experience.bullets" :key="i" class="exp-item">
-      <div class="exp-title">{{ b.title }}</div>
-      <div class="exp-text">{{ b.content }}</div>
+      <div class="exp-item-title">{{ b.title }}</div>
+      <div class="exp-item-content">{{ b.content }}</div>
     </div>
 
-    <div class="sec"><h2>Projects ({{ filteredProjects.length }}/{{ data.projects.length }})</h2></div>
+    <div class="section-head">
+      <span class="section-label">Projects</span>
+      <span class="section-count">{{ filteredProjects.length }}/{{ data.projects.length }}</span>
+      <span class="section-rule" />
+    </div>
     <ProjectCard v-for="p in filteredProjects" :key="p.id" :project="p" />
 
-    <div class="sec"><h2>Honors</h2></div>
-    <div v-for="(a, i) in awards" :key="i" class="award">
+    <div class="section-head">
+      <span class="section-label">Honors</span>
+      <span class="section-rule" />
+    </div>
+    <div v-for="(a, i) in awards" :key="i" class="award-row">
       <span class="award-badge">{{ a.title }}</span>
       <span>{{ a.event }}</span>
       <span class="award-year">{{ a.year }}</span>
-    </div>
-
-    <div class="print-only" style="display:none;margin-top:2rem;font-size:.7rem;color:var(--t4);border-top:1px solid #ddd;padding-top:.8rem">
-      此简历由真实 Git 工程数据生成 · 基于 4 个项目 369 条提交
     </div>
   </div>
 </template>
