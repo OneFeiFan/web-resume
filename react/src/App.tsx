@@ -19,24 +19,34 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { staleTime: 5 * 60 * 1000, retry: 1 } },
 });
 
+function LoadingFallback() {
+  return (
+    <div className="loading-placeholder">
+      Loading…
+    </div>
+  );
+}
+
 function Shell() {
   useTheme();
   const { pathname } = useLocation();
   const viewMode = useResumeStore((s) => s.viewMode);
 
   const mainClass = ['app-main'];
-  if (['/project/', '/tech-stack', '/timeline'].some(p => pathname.startsWith(p))) mainClass.push('wide');
+  if (['/project/', '/tech-stack', '/timeline'].some((p) => pathname.startsWith(p))) {
+    mainClass.push('wide');
+  }
   if (pathname === '/about') mainClass.push('wide');
   if (viewMode === 'print') mainClass.push('print-mode');
 
   return (
-    <>
+    <div className="app-shell">
       <ScrollToTop />
       {viewMode !== 'print' && <Navigation />}
       <main className={mainClass.join(' ')}>
         <PrintBar />
         <FrameworkSwitcher />
-        <Suspense fallback={<div style={{padding:'4rem 0',textAlign:'center',color:'#aaa'}}>Loading…</div>}>
+        <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/project/:id" element={<ProjectDetail />} />
@@ -47,7 +57,7 @@ function Shell() {
         </Suspense>
         <TechFooter />
       </main>
-    </>
+    </div>
   );
 }
 

@@ -1,75 +1,103 @@
-import { useState } from 'react';
+import { useState, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import type { Project } from '../types/resume';
+import { useScrollReveal } from '../hooks/useScrollReveal';
 
-interface Props { project: Project; }
+interface Props { project: Project; index?: number; }
 
 const METRIC_KEYS: Record<string, string> = {
-  commits: '提交', insertions: '+行', deletions: '-行', files: '文件',
+  commits: '提交', insertions: '+行', deletions: '−行', files: '文件',
   domains: '业务域', total_repo_commits: '总提交', contribution: '贡献占比', team_size: '团队',
 };
 
-export default function ProjectCard({ project }: Props) {
+export default function ProjectCard({ project, index = 0 }: Props) {
   const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+  const cardRef = useScrollReveal<HTMLElement>();
+
+  const handleToggle = useCallback(() => {
+    setExpanded((prev) => !prev);
+  }, []);
+
+  const handleNavigate = useCallback(() => {
+    navigate(`/project/${project.id}`);
+  }, [navigate, project.id]);
 
   return (
-    <article className="card">
-      <div className="proj-hdr">
+    <article
+      ref={cardRef}
+      className={`card reveal${expanded ? ' expanded' : ''}`}
+      style={{ transitionDelay: `${index * 60}ms` }}
+    >
+      {/* Header row */}
+      <div className="card-header">
         <h3>{project.name}</h3>
-        <div style={{display:'flex',gap:'.6rem',flexWrap:'wrap'}}>
-          {Object.entries(project.metrics).filter(([,v]) => v !== undefined).map(([k, v]) => (
-            <div key={k} style={{textAlign:'center'}}>
-              <div className="met-num" style={{fontSize:'1.1rem'}}>{v}</div>
-              <div className="met-lbl">{METRIC_KEYS[k] || k}</div>
-            </div>
-          ))}
+        <div className="card-mini-metrics">
+          {Object.entries(project.metrics)
+            .filter(([, v]) => v !== undefined)
+            .slice(0, 4)
+            .map(([k, v]) => (
+              <div className="card-mini-metric" key={k}>
+                <div className="card-mini-num">{v}</div>
+                <div className="card-mini-lbl">{METRIC_KEYS[k] || k}</div>
+              </div>
+            ))}
         </div>
       </div>
 
-      <p className="proj-period">{project.period} · {project.role}</p>
-      <p className="t2" style={{fontSize:'.85rem',marginTop:'.4rem',lineHeight:1.7}}>{project.summary}</p>
+      {/* Period + role */}
+      <p className="card-period" style={{ marginTop: '0.3rem' }}>
+        {project.period} · {project.role}
+      </p>
 
-      <div className="proj-tags">
+      {/* Description */}
+      <p className="card-desc">{project.summary}</p>
+
+      {/* Tech tags */}
+      <div className="card-tags">
         {project.techStack.map((t) => (
-          <span key={t} className="proj-tag">{t}</span>
+          <span key={t} className="card-tag">{t}</span>
         ))}
       </div>
 
-      <div className="no-print" style={{marginTop:'.8rem',display:'flex',gap:'1rem'}}>
+      {/* Actions */}
+      <div className="card-actions no-print">
         {!expanded ? (
-          <a onClick={() => setExpanded(true)} style={{fontSize:'.78rem',cursor:'pointer'}}>
+          <span className="card-action" onClick={handleToggle} role="button" tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleToggle(); } }}>
             ▸ 展开深度案例 ({project.cases.length})
-          </a>
+          </span>
         ) : (
-          <a onClick={() => setExpanded(false)} style={{fontSize:'.78rem',cursor:'pointer'}}>
+          <span className="card-action" onClick={handleToggle} role="button" tabIndex={0}
+            onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleToggle(); } }}>
             ▾ 收起
-          </a>
+          </span>
         )}
-        <a onClick={() => navigate(`/project/${project.id}`)} style={{fontSize:'.78rem',cursor:'pointer'}}>
+        <span className="card-action" onClick={handleNavigate} role="button" tabIndex={0}
+          onKeyDown={(e) => { if (e.key === 'Enter') { e.preventDefault(); handleNavigate(); } }}>
           → 完整项目页
-        </a>
+        </span>
       </div>
 
-      {expanded && (
-        <div style={{marginTop:'.8rem'}}>
-          {project.cases.map((c, i) => (
-            <div className="case" key={i}>
-              <h4><span className="case-label">0{i + 1}</span> {c.title}</h4>
-              <p><span className="case-label">背景</span> {c.background}</p>
-              <p><span className="case-label">决策</span> {c.decision}</p>
-              <p><span className="case-label">成果</span> {c.impact}</p>
-              {c.commits.length > 0 && (
-                <div className="proj-tags">
-                  {c.commits.map((cm) => (
-                    <span key={cm.slice(0,8)} className="proj-tag">{cm}</span>
-                  ))}
-                </div>
-              )}
+      {/* Expanded case studies — staggered entry */}
+      {expanded && project.cases.map((c, i) => (
+        <div className="card-case" key={i}>
+          <h4>
+            <span className="card-case-label">{String(i + 1).padStart(2, '0')}</span>
+            {' '}{c.title}
+          </h4>
+          <p><span className="card-case-label">背景</span> {c.background}</p>
+          <p><span className="card-case-label">决策</span> {c.decision}</p>
+          <p><span className="card-case-label">成果</span> {c.impact}</p>
+          {c.commits.length > 0 && (
+            <div className="card-tags" style={{ marginTop: '0.4rem' }}>
+              {c.commits.map((cm) => (
+                <span key={cm.slice(0, 8)} className="card-tag">{cm.slice(0, 7)}</span>
+              ))}
             </div>
-          ))}
+          )}
         </div>
-      )}
+      ))}
     </article>
   );
 }

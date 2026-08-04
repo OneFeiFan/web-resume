@@ -1,61 +1,56 @@
-import { useResumeStore } from '../stores/useResumeStore';
+import { useResume } from '../hooks/useResume';
 
 export default function PrintBar() {
-  const viewMode = useResumeStore((s) => s.viewMode);
-  const toggleViewMode = useResumeStore((s) => s.toggleViewMode);
+  const { viewMode, toggleViewMode } = useResume();
 
-  const btn: React.CSSProperties = {
-    border: '1px solid var(--c-border)',
-    background: 'var(--c-card)',
+  const btnStyle: React.CSSProperties = {
+    border: '1px solid var(--border)',
+    background: 'var(--card-bg)',
     color: 'var(--t2)',
-    padding: '.35rem .9rem',
-    borderRadius: 4,
+    padding: '0.35rem 0.9rem',
+    borderRadius: 'var(--radius-sm)',
     cursor: 'pointer',
-    fontSize: '.78rem',
+    fontSize: '0.78rem',
     fontFamily: 'inherit',
-    transition: 'all .15s',
+    transition: 'all 0.15s ease',
   };
 
-  const primaryBtn: React.CSSProperties = {
-    ...btn,
-    background: 'var(--c-primary)',
-    color: 'var(--c-surface)',
-    borderColor: 'var(--c-primary)',
-    fontWeight: 500,
-  };
-
-  // Entry button (interactive mode)
   if (viewMode !== 'print') {
     return (
-      <div style={{ textAlign: 'right', marginBottom: '.3rem' }} className="no-print">
-        <button onClick={toggleViewMode} style={{ ...btn, fontSize: '.75rem' }}>
-          打印预览
+      <div style={{ textAlign: 'right', marginBottom: '0.3rem' }} className="no-print">
+        <button onClick={toggleViewMode} style={btnStyle}>
+          🖨 打印预览
         </button>
       </div>
     );
   }
 
-  // Toolbar (preview mode)
   return (
     <div
-      className="print-toolbar"
+      className="print-toolbar no-print"
       style={{
         position: 'sticky', top: 0, zIndex: 50,
-        display: 'flex', alignItems: 'center', gap: '.8rem',
-        padding: '.6rem 0', marginBottom: '2rem',
-        borderBottom: '1px solid var(--c-border)',
-        background: 'var(--c-surface)',
-        fontSize: '.78rem',
+        display: 'flex', alignItems: 'center', gap: '0.8rem',
+        padding: '0.6rem 0', marginBottom: '2rem',
+        borderBottom: '1px solid var(--border)',
+        background: 'var(--bg)',
+        fontSize: '0.78rem',
       }}
     >
-      <span style={{ color: 'var(--t3)', fontSize: '.75rem', fontFamily: "'JetBrains Mono',monospace" }}>
+      <span style={{ color: 'var(--t3)', fontSize: '0.75rem', fontFamily: "'JetBrains Mono', monospace" }}>
         打印预览 · A4
       </span>
       <div style={{ flex: 1 }} />
-      <button onClick={toggleViewMode} style={btn}>
+      <button onClick={toggleViewMode} style={btnStyle}>
         退出
       </button>
-      <button onClick={() => window.print()} style={primaryBtn}>
+      <button onClick={() => window.print()} style={{
+        ...btnStyle,
+        background: 'var(--accent)',
+        color: '#fff',
+        borderColor: 'var(--accent)',
+        fontWeight: 500,
+      }}>
         下载 PDF
       </button>
     </div>
