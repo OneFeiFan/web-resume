@@ -836,8 +836,6 @@ a:hover { color: var(--red); }
   border-radius: 2px;
   white-space: nowrap;
   background-color: var(--red-pale);
-  background-image: radial-gradient(circle, rgba(196,77,52,0.15) 0.5px, transparent 1px);
-  background-size: 3px 3px;
 }
 
 .award-year {
@@ -1001,7 +999,7 @@ a:hover { color: var(--red); }
 .dark .top-bar-btn:hover { color: var(--red); }
 
 /* Awards — ensure badge is readable on dark bg */
-.dark .award-badge { background-color: #3F2A22; background-image: radial-gradient(circle, rgba(224,123,94,0.2) 0.5px, transparent 1px); }
+.dark .award-badge { background-color: #3F2A22; }
 .dark .award-row { color: var(--ink); }
 
 /* ── 21. Print Mode ────────────────────── */
