@@ -843,17 +843,42 @@ a:hover { color: var(--red); }
   margin-left: auto;
 }
 
-/* ── 15. Switcher ──────────────────────── */
-.switcher {
+/* ── 15. Toolbar row (framework + print) ── */
+.toolbar-row {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--sp-2) var(--sp-4);
   margin-bottom: var(--sp-8);
+  padding: var(--sp-1) 0;
+}
+
+.toolbar-text {
   font-size: var(--text-xs);
+  color: var(--ink-faint);
+}
+
+.toolbar-text a {
   color: var(--ink-muted);
+  font-size: var(--text-xs);
+}
+
+.toolbar-text a:hover { color: var(--red); }
+
+.toolbar-btn {
   border: 1px solid var(--rule);
+  background: var(--paper);
+  color: var(--ink-muted);
+  padding: 2px 10px;
+  cursor: pointer;
+  font-size: var(--text-xs);
+  font-family: inherit;
   border-radius: 2px;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.toolbar-btn:hover {
+  border-color: var(--rule-strong);
+  color: var(--ink);
 }
 
 /* ── 16. Metrics bar (timeline stats) ──── */
@@ -958,7 +983,8 @@ a:hover { color: var(--red); }
 .dark .hero-summary { background: #262421; }
 .dark .tl-date { background: #262421; }
 .dark .print-toolbar { background: #1E1C1A; border-color: #38342E; }
-.dark .switcher { border-color: #38342E; }
+.dark .toolbar-btn { border-color: #38342E; background: #1E1C1A; color: #8A8478; }
+.dark .toolbar-btn:hover { border-color: #4A4540; color: #B8B2A6; }
 
 /* Awards — ensure badge is readable on dark bg */
 .dark .award-badge { background: #3F2A22; }
@@ -971,7 +997,6 @@ a:hover { color: var(--red); }
 }
 
 .print-mode .no-print { display: none !important; }
-.print-mode .switcher { display: none; }
 .print-mode .card { box-shadow: none; border: 1px solid #ccc; }
 .print-mode .exp-item { page-break-inside: avoid; }
 .print-mode .hero-summary {

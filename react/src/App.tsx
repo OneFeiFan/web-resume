@@ -2,7 +2,6 @@ import { lazy, Suspense } from 'react';
 import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Navigation from './components/Navigation';
-import FrameworkSwitcher from './components/FrameworkSwitcher';
 import TechFooter from './components/TechFooter';
 import PrintBar from './components/PrintBar';
 import ScrollToTop from './components/ScrollToTop';
@@ -27,6 +26,7 @@ function Shell() {
   useTheme();
   const { pathname } = useLocation();
   const viewMode = useResumeStore((s) => s.viewMode);
+  const toggleViewMode = useResumeStore((s) => s.toggleViewMode);
 
   const mainClass = ['app-main'];
   if (['/project/', '/tech-stack', '/timeline', '/about'].some((p) => pathname.startsWith(p))) {
@@ -39,8 +39,14 @@ function Shell() {
       <ScrollToTop />
       {viewMode !== 'print' && <Navigation />}
       <main className={mainClass.join(' ')}>
-        <PrintBar />
-        <FrameworkSwitcher />
+        {viewMode === 'print' ? (
+          <PrintBar />
+        ) : (
+          <div className="toolbar-row no-print">
+            <span className="toolbar-text">⚛ React 版 · <a href="/vue/">Vue 3 →</a></span>
+            <button onClick={toggleViewMode} className="toolbar-btn">打印预览</button>
+          </div>
+        )}
         <Suspense fallback={<LoadingFallback />}>
           <Routes>
             <Route path="/" element={<Home />} />
